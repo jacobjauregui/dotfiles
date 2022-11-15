@@ -79,6 +79,7 @@ fi
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
 
+
 alias ..="cd .."
 alias ll="lsd"
 alias lll="lsd -lah"
@@ -87,5 +88,12 @@ alias srczsh="source ~/.zshrc"
 alias zshcfg="nvim ~/.zshrc"
 alias p10kcfg="nvim ~/.p10k.zsh"
 alias gitdot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias gta="git add"
+alias gtb="git branch"
+alias gtc="git commit -m"
+alias gch="git checkout"
+alias gtm="git merge"
+alias gtr="git remote add origin"
+alias gtp="git push"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
