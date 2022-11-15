@@ -1,0 +1,6 @@
+[user]
+	name = jacobjauregui
+	email = jacob_jauregui_23@outlook.com
+[core]
+	editor = nvim
+	autocrlf = input
