@@ -38,7 +38,6 @@ zstyle ':omz:update' frequency 13
 
 
 plugins=(
-	1password
 	adb
 	aliases
 	alias-finder
@@ -88,6 +87,7 @@ alias srczsh="source ~/.zshrc"
 alias zshcfg="nvim ~/.zshrc"
 alias p10kcfg="nvim ~/.p10k.zsh"
 alias gitdot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias graph='gitdot log --all --decorate --oneline --graph'
 alias gta="git add"
 alias gtb="git branch"
 alias gtc="git commit -m"
