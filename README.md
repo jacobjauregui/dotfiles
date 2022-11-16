@@ -1,16 +1,18 @@
 ## **Jacobjauregui's dotfiles**
 
-### __Tree-files__
+### __Files-structure__
 ----------------------------------------------------
 
 * :house: **$HOME/**
-	* _.zshrc_
+	* _.gitignore_
+	* _.gitconfig_
 	* _.p10k.zsh_
-	* :file_folder: .oh-my-zsh/
+	* _.zshrc_
+	* :file_folder: __.oh-my-zsh/__
 		* :file_folder: custom
 			* :file_folder: plugins/
 			* :file_folder: themes/
-	* :file_folder: .config/
+	* :file_folder: __.config/__
 		* :file_folder: nvim/
 			* :file_folder: lua/
 				* :file_folder: custom/
@@ -24,5 +26,5 @@
 					* _lspconfi.lua_
 					* :file_folder: themes/
 						* _cattpuccin_dark_
-	* :file_folder: wezterm/
+	* :file_folder: __wezterm/__
 		* _wezterm.lua_
