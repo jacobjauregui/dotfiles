@@ -75,25 +75,26 @@ else
 	export EDITOR='nvim'
 fi
 
-# Compilation flags
 export ARCHFLAGS="-arch x86_64"
-
 
 alias ..="cd .."
 alias ll="lsd"
 alias lll="lsd -lah"
 alias lsr="lsd -R"
+alias rmdr="rm -dr"
 alias srczsh="source ~/.zshrc"
 alias zshcfg="nvim ~/.zshrc"
 alias p10kcfg="nvim ~/.p10k.zsh"
 alias gitdot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
-alias graph='gitdot log --all --decorate --oneline --graph'
-alias gta="git add"
-alias gtb="git branch"
-alias gtc="git commit -m"
-alias gch="git checkout"
-alias gtm="git merge"
-alias gtr="git remote add origin"
-alias gtp="git push"
+alias dotgr='gitdot log --all --decorate --oneline --graph'
+alias gitgr='git log --all --decorate --oneline --graph'
+alias gha="git add"
+alias ghb="git branch"
+alias ghc="git commit -m"
+alias ghh="git checkout"
+alias ghm="git merge"
+alias ghr="git remote"
+alias ghph="git push"
+alias ghpl="git pull"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
