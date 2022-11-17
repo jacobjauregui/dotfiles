@@ -2,15 +2,29 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+if [[ -n $SSH_CONNECTION ]]; then
+	export EDITOR='vim'
+else
+	export EDITOR='nvim'
+fi
+
+#||||||||||||||||||||||||| ENVIRONMENT VARIABLES ||||||||||||||||||||||||||||||
+
 export ZSH="$HOME/.oh-my-zsh"
+export MANPATH="/usr/local/man:$MANPATH"
+export LANG=en_US.UTF-8
+export PATH="$HOME/.local/bin:$PATH"
+export ARCHFLAGS="-arch x86_64"
+
+# |||||||||||||||||||||||||||| CONFIGURATION ||||||||||||||||||||||||||||||||||
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
+
+#ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell`" "agnoster" )
 
 POWERLEVEL_LEGACY_ICON_SPACING="true"
 
 ZLE_RPROMPT_INDENT=0
-
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell`" "agnoster" )
 
 CASE_SENSITIVE="false"
 
@@ -25,6 +39,7 @@ DISABLE_AUTO_TITLE="false"
 ENABLE_CORRECTION="true"
 
 # COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+
 COMPLETION_WAITING_DOTS="true"
 
 DISABLE_UNTRACKED_FILES_DIRTY="false"
@@ -36,6 +51,7 @@ HIST_STAMPS="mm/dd/yyyy"
 zstyle ':omz:update' mode auto
 zstyle ':omz:update' frequency 13
 
+# ||||||||||||||||||||||||||||||||| PLUGINS |||||||||||||||||||||||||||||||||||
 
 plugins=(
 	adb
@@ -62,30 +78,26 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-# source $ZSH_CUSTOM/plugins
+#source $ZSH_CUSTOM/plugins
 
-# ZSH_CUSTOM=~/Documents/zsh/custom/plugins
-export PATH="$HOME/.local/bin:$PATH"
-export MANPATH="/usr/local/man:$MANPATH"
-export LANG=en_US.UTF-8
+# ||||||||||||||||||||||||||| ALIASSES ||||||||||||||||||||||||||||||||||||||||
 
-if [[ -n $SSH_CONNECTION ]]; then
-	export EDITOR='vim'
-else
-	export EDITOR='nvim'
-fi
-
-export ARCHFLAGS="-arch x86_64"
-
+# Basics (cd, cp, ls, mv, rm, )
 alias ..="cd .."
+alias cwork="cd ~/Documents/Workspaces"
+alias cdown="cd ~/Downloads"
 alias ll="lsd"
 alias lll="lsd -lah"
 alias lsr="lsd -R"
 alias rmdr="rm -dr"
-alias srczsh="source ~/.zshrc"
+
+# ZSH 
+alias srzsh="source ~/.zshrc"
 alias zshcfg="nvim ~/.zshrc"
 alias p10kcfg="nvim ~/.p10k.zsh"
+alias zshup="omz update"
 
+# Git dotfiles (bare repo)
 alias gitdot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 alias dota="gitdot add"
 alias dotb="gitdot branch"
@@ -102,6 +114,7 @@ alias dotre="gitdot reset"
 alias dots="gitdot checkout"
 alias dotst="gitdot status"
 
+# Git
 alias gita="git add"
 alias gitb="git branch"
 alias gitc="git commit -m"
