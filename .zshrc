@@ -91,12 +91,12 @@ alias lll="lsd -lah"
 alias lsr="lsd -R"
 alias rmdr="rm -dr"
 
-# ZSH 
+# CONGIG FILES
 alias srzsh="source ~/.zshrc"
 alias zshcfg="nvim ~/.zshrc"
 alias p10kcfg="nvim ~/.p10k.zsh"
 alias zshup="omz update"
-
+alias wezcfg="nvim ~/.config/wezterm/wezterm.lua"
 # Git dotfiles (bare repo)
 alias gitdot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 alias dota="gitdot add"
