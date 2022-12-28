@@ -1,5 +1,9 @@
 .dotfiles
 .config/nvim/LICENSE
-.config/nvim/plugin/*
-.config/nvim/lua/core/*
-.config/nvim/lua/plugins/*
+.config/nvim/.stylua.toml
+.config/nvim/.luarc.json
+.config/nvim/.git
+.config/nvim/.github
+.config/nvim/plugin
+.config/nvim/lua/core
+.config/nvim/lua/plugins
