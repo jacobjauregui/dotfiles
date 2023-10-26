@@ -3,10 +3,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 if [[ -n $SSH_CONNECTION ]]; then
-	export EDITOR='vim'
-else
 	export EDITOR='nvim'
 fi
+#else
+#	export EDITOR='vim'
 
 #||||||||||||||||||||||||| ENVIRONMENT VARIABLES ||||||||||||||||||||||||||||||
 
@@ -14,8 +14,9 @@ export ZSH="$HOME/.oh-my-zsh"
 export MANPATH="/usr/local/man:$MANPATH"
 export LANG=en_US.UTF-8
 export PATH="$HOME/.local/bin:$PATH"
-export ARCHFLAGS="-arch x86_64"
+#export ARCHFLAGS="-arch x86_64"
 export PATH="$HOME/.dotnet/tools:$PATH"
+export BANDIT="$HOME/Scripts/bandit.zsh"
 
 # |||||||||||||||||||||||||||| CONFIGURATION ||||||||||||||||||||||||||||||||||
 
@@ -27,7 +28,7 @@ POWERLEVEL_LEGACY_ICON_SPACING="true"
 
 ZLE_RPROMPT_INDENT=0
 
-CASE_SENSITIVE="false"
+CASE_SENSITIVE="true"
 
 HYPHEN_INSENSITIVE="true"
 
@@ -62,7 +63,6 @@ plugins=(
     colored-man-pages
     emoji
     emotty
-    extract
     genpass
     git
     python
@@ -78,12 +78,13 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-source /usr/share/zsh/plugins/zsh-extract/extract.plugin.zsh
+#source /usr/share/zsh/plugins/zsh-extract/extract.plugin.zsh
 #source $ZSH_CUSTOM/plugins
 
 # ||||||||||||||||||||||||||| ALIASSES ||||||||||||||||||||||||||||||||||||||||
 
 # Basics (cd, cp, ls, mv, rm, )
+alias bat="batcat"
 alias ..="cd .."
 alias cwork="cd ~/Documents/Workspaces"
 alias cdown="cd ~/Downloads"
@@ -92,17 +93,21 @@ alias cdesk="cd ~/Desktop"
 alias cpic="cd ~/Pictures"
 alias cvid="cd ~/Videos"
 alias cmus="cd ~/Music"
+alias cscr="cd ~/Scripts"
 alias ll="lsd"
 alias lll="lsd -lah"
 alias lsr="lsd -R"
 alias rmdr="rm -drf"
+alias dvim="nvim"
+alias vime="nvim -e"
 
 # CONGIG FILES
 alias srczsh="source ~/.zshrc"
-alias zshcfg="nvim ~/.zshrc"
-alias p10kcfg="nvim ~/.p10k.zsh"
-alias qtilecfg="nvim ~/.config/qtile/config.py"
-alias wezcfg="nvim ~/.config/wezterm/wezterm.lua"
+alias cfgzsh="nvim ~/.zshrc"
+alias cfgp10k="nvim ~/.p10k.zsh"
+alias bandit="nvim ~/Scripts/bandit.zsh"
+#alias qtilecfg="nvim ~/.config/qtile/config.py"
+#alias wezcfg="nvim ~/.config/wezterm/wezterm.lua"
 alias zshup="omz update"
 # Git dotfiles (bare repo)
 alias gitdot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
@@ -134,7 +139,10 @@ alias gitp="git push"
 alias gitpl="git pull"
 alias gitr="git remote"
 alias gitre="git reset"
-alias gits="git checkout"
+alias gitch="git checkout"
 alias gitst="git status"
+alias gitsw="git switch"
+alias gitf="git fetch"
+alias gitcl="git clone"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
