@@ -1,0 +1,123 @@
+# --------------------------- WINDOW ------------------------------------------
+[window]
+title = " Alacritty"
+dynamic_title = true
+opacity = 0.7
+decorations = "Full"
+startup_mode = "Maximized" # Maximized, Fullscreen, Windowed
+
+#[window.dimensions]
+#columns = 136
+#lines = 29
+
+[window.padding]
+x = 2
+y = 2
+
+#[window.position]
+#x = 0
+#y = 0
+
+# ---------------------------- COLORS -----------------------------------------
+[colors.primary]
+background = "#15141b" # #1e1e2e
+foreground = "#edecee" # #CDD6F4
+#dim_foreground = "#CDD6F4"
+#bright_foreground = "#CDD6F4"
+
+[colors.cursor]
+#text = "#060606" #1e1e2E
+cursor = "#a277ff" #F5E0DC
+
+#[colors.vi_mode_cursor]
+#text = CellForeground #24273A
+#cursor = "#66a6e6" #B7BDF8
+
+#[colors.hints.start]
+#foreground = "#6a6a6a" # #24273A base
+#background = "#f9e2aF" # #EED49F yellow
+
+#[colors.hints.end]
+#foreground = "0x24273A" # #24273A base
+#background = "0xA5ADCB" # #A5ADCB subtext0
+
+[colors.selection]
+text =  '#edecee' # #24273A base
+background = '#29263c' # #F4DBD6 rosewater
+
+[colors.bright]
+black = '#4d4d4d' # #5B6078 surface2
+red = '#ff6767'
+green = '#61ffca'
+yellow = '#ffca85'
+blue = '#a277ff'
+magenta = '#a277ff'
+cyan = '#61ffca'
+white = '#edecee' # #A5ADCB subtext0
+
+[colors.normal]
+black= '#110f18' # #494D64 surface1
+red = '#ff6767' # #ED8796
+green = '#61ffca' # #A6DA95
+yellow = '#ffca85' # #EED49F
+blue = '#a277ff' # #8AADF4
+magenta = '#a277ff' # #F5BDE6 link
+cyan = '#61ffca' # #8BD5CA
+white = '#edecee' # #B8C0E0 subtext1
+
+# [colors.dim]
+# black = '#494D64' # #494D64 surface1
+# red = '#ED8796' # #ED8796 red
+# green = '#A6DA95' # #A6DA95 green
+# yellow = '#EED49F' # #EED49F yellow
+# blue = '#8AADF4' # #8AADF4 blue
+# magenta = '#F5BDE6' # #F5BDE6 pink
+# cyan = '#8BD5CA' # #8BD5CA teal
+# white = '#B8C0E0' # #B8C0E0 subtext1
+
+# ---------------------------- FONT -----------------------------------------
+[font] # run the command [$ fc-list] to get a list of all available fonts.
+size = 12
+
+[font.offset]
+x = 0
+y = 0
+
+[font.normal]
+family = "MesloLGS NF"
+style = "Regular"
+
+[font.bold]
+family = "MesloLGS NF"
+style = "Bold"
+
+[font.italic]
+family = "VictorMono Nerd Font Mono"
+style = "Italic"
+
+[font.bold_italic]
+family = "VictorMono Nerd Font Mono"
+style = "Bold Italic"
+
+# ---------------------------- CURSOR -----------------------------------------
+
+[cursor.style]
+shape = "Underline" # |Beam, _Underline, ||Block
+blinking = "Always" # Always, Never, on, off
+# vi_mode_style = "Block" # Beam, _Underline, ||Block
+[cursor]
+blink_interval = 400
+blink_timeout = 250
+thickness = 0.25
+unfocused_hollow = false
+
+# [bell]
+# animation = "EaseOutExpo"
+# duration = 1
+# color = "#EFEF42"
+
+[scrolling]
+history = 1000
+
+# [selection]
+# save_to_clipboard = true
