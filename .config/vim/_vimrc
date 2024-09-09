@@ -1,0 +1,131 @@
+if &term =~ "xterm" || &term =~ "win32"
+" ________________________________ SETTINGS ___________________________________
+	syntax on
+	set encoding=utf-8
+	set backspace=indent,eol,start
+	set clipboard=unnamed
+	set cursorlineopt=n-v-c:block-Cursor,o:hor50,i-ci:ver25-iCursor,sm:hor35
+	set history=100
+	set nohlsearch
+	set incsearch
+	set ignorecase
+	set smartcase
+	set wildmenu
+	set cursorline
+	set colorcolumn=80
+	set columns=130
+	set lines=26
+	set number
+	set numberwidth=6
+	set ruler
+	set selection=inclusive
+	set scroll=3
+	set scrolloff=9
+	set tabstop=4
+	set shiftwidth=4
+	set softtabstop=4
+	set noexpandtab
+	set autoindent
+	set startofline
+	set nowrap
+	set cmdheight=1
+	set showmode
+	set laststatus=2
+	set list
+	set fillchars=vert:│,fold:\\u2508,foldopen:-,foldclose:+,eob:\ ,lastline:\ ,
+	set listchars=tab:│\ ,space:\ ,trail:\ ,
+	set linespace=0
+	set nrformats=bin,octal,hex
+
+
+" ___________________________ TERMINAL AND SHELL ______________________________
+
+	set shell=C:/Program\ Files/PowerShell/7/pwsh.exe
+	set timeout
+	set timeoutlen=150 
+	set ttimeout
+	set ttimeoutlen=150
+	let &t_SI .= "\<Esc>[5 q" "Insert mode-Blink bar cursor
+	let &t_SR .= "\<Esc>[3 q" "Replace mode-Blink underlined cursor
+	let &t_EI .= "\<Esc>[1 q" "Exit insert mode-Blink block cursor
+	let &t_ti .= "\<Esc>[1 q" "Exit insert mode-Blink block cursor
+	let &t_EI .= "\<Esc>[0 q" "Exit insert mode-Blink block cursor
+
+" _____________________________ KEYMAPS ___________________________________
+	let mapleader=' '
+
+" --- NORMAL MODE ---
+	nmap i <Up>
+	nmap j <Left>
+	nmap k <Down>
+	nmap l <Right>
+	nmap o <S-O>
+	nnoremap m o
+	nnoremap h a
+	nnoremap a i
+	nnoremap vv <C-V>
+	nnoremap <Leader>i gg 
+	nnoremap <Leader>j <Home>
+	nnoremap <Leader>k G
+	nnoremap <Leader>l <End> 
+	nnoremap ; :
+	nnoremap , <<
+	nnoremap . >>
+	nnoremap <Leader>q :wq<CR>
+	nnoremap <Leader>! :q!<CR>
+	nnoremap <Leader>s :w<CR>
+	nnoremap <Leader>rn :set rnu!<CR>
+
+
+" --- INSERT MODE ---
+	inoremap <A-n> <Esc>
+	inoremap <A-h> <BS>
+	inoremap <A-k> <Down>
+	inoremap <A-i> <Up>
+	inoremap <A-j> <Left>
+	inoremap <A-l> <Right>
+	inoremap <Leader><Space> <TAB>
+
+" --- VISUAL MODE ---
+	vmap i <Up>
+	vmap j <Left>
+	vmap k <Down>
+	vmap l <Right>
+	vnoremap <Leader>i gg
+	vnoremap <Leader>j <Home>
+	vnoremap <Leader>k G
+	vnoremap <Leader>l <End>
+	vnoremap v <Esc>
+	vnoremap . >
+	vnoremap , <
+" _____________________________ HIGHLIGHTS  ___________________________________
+	highlight clear
+	highlight Normal cterm=NONE ctermbg=black ctermfg=white
+	highlight ColorColumn cterm=bold ctermbg=4 ctermfg=NONE
+	highlight Cursor cterm=NONE ctermbg=white ctermfg=black
+	highlight iCursor cterm=NONE ctermbg=white ctermfg=black
+	highlight CursorLine cterm=NONE ctermbg=black ctermfg=cyan
+	highlight CursorLineNr cterm=bold ctermbg=grey ctermfg=yellow
+	highlight LineNr cterm=NONE ctermbg=black ctermfg=grey
+	highlight StatusLine cterm=bold ctermbg=grey ctermfg=green
+	highlight EndOfBuffer cterm=NONE ctermbg=bg ctermfg=bg
+" --- SYNTAX ---
+	highlight Boolean term=italic cterm=italic ctermfg=13 ctermbg=NONE
+	highlight Comment term=italic cterm=italic ctermfg=8 ctermbg=bg
+	highlight Constant cterm=NONE ctermfg=255 ctermbg=NONE
+	highlight Character ctermfg=2 ctermbg=NONE
+	highlight Conditional ctermfg=5 ctermbg=NONE
+	highlight Identifier ctermfg=255 ctermbg=NONE
+	highlight Keyword ctermfg=3 ctermbg=NONE
+	highlight Number ctermfg=4 ctermbg=NONE
+	highlight Float ctermfg=4 ctermbg=NONE
+	highlight Function ctermfg=6 ctermbg=NONE
+	highlight String ctermfg=2 ctermbg=NONE
+	highlight Operator ctermfg=12 ctermbg=NONE
+	highlight Label ctermfg=5 ctermbg=NONE
+	highlight Delimiter ctermfg=6 ctermbg=NONE
+	highlight Type ctermfg=11 ctermbg=NONE
+	highlight Repeat ctermfg=13 ctermbg=NONE
+	highlight Statement ctermfg=1 ctermbg=NONE
+	highlight Error cterm=underline ctermfg=4 ctermbg=NONE
+endif
