@@ -3,20 +3,18 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 if [[ -n $SSH_CONNECTION ]]; then
-	export EDITOR='nvim'
+	export EDITOR='vim'
 fi
-#else
-#	export EDITOR='vim'
 
 #||||||||||||||||||||||||| ENVIRONMENT VARIABLES ||||||||||||||||||||||||||||||
 
 export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="$ZSH/custom"
 export MANPATH="/usr/local/man:$MANPATH"
 export LANG=en_US.UTF-8
 export PATH="$HOME/.local/bin:$PATH"
 #export ARCHFLAGS="-arch x86_64"
 export PATH="$HOME/.dotnet/tools:$PATH"
-export BANDIT="$HOME/Scripts/bandit.zsh"
 
 # |||||||||||||||||||||||||||| CONFIGURATION ||||||||||||||||||||||||||||||||||
 
@@ -56,17 +54,17 @@ zstyle ':omz:update' frequency 13
 # ||||||||||||||||||||||||||||||||| PLUGINS |||||||||||||||||||||||||||||||||||
 
 plugins=(
-    adb
+#    adb
     alias-finder
     aliases
     autopep8
     colored-man-pages
-    emoji
+#    emoji
     emotty
     genpass
     git
     python
-    ripgrep
+#    ripgrep
     sudo
     vi-mode
     web-search
@@ -79,7 +77,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 #source /usr/share/zsh/plugins/zsh-extract/extract.plugin.zsh
-#source $ZSH_CUSTOM/plugins
+source $ZSH_CUSTOM/plugins
 
 # ||||||||||||||||||||||||||| ALIASSES ||||||||||||||||||||||||||||||||||||||||
 
@@ -94,21 +92,18 @@ alias cpic="cd ~/Pictures"
 alias cvid="cd ~/Videos"
 alias cmus="cd ~/Music"
 alias cscr="cd ~/Scripts"
-alias ll="lsd"
-alias lll="lsd -lah"
-alias lsr="lsd -R"
+alias ll="lsd -lah"
+alias llr="lsd -R"
 alias rmdr="rm -drf"
-alias dvim="nvim"
-alias vime="nvim -e"
 
 # CONGIG FILES
 alias srczsh="source ~/.zshrc"
-alias cfgzsh="nvim ~/.zshrc"
-alias cfgp10k="nvim ~/.p10k.zsh"
-alias bandit="nvim ~/Scripts/bandit.zsh"
-#alias qtilecfg="nvim ~/.config/qtile/config.py"
-#alias wezcfg="nvim ~/.config/wezterm/wezterm.lua"
-alias zshup="omz update"
+alias cfgzsh="vim ~/.zshrc"
+alias cfgp10k="vim ~/.p10k.zsh"
+#alias bandit="vim ~/Scripts/bandit.zsh"
+#alias qtilecfg="vim ~/.config/qtile/config.py"
+#alias wezcfg="vim ~/.config/wezterm/wezterm.lua"
+
 # Git dotfiles (bare repo)
 alias gitdot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 alias dota="gitdot add"
