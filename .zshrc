@@ -79,10 +79,14 @@ source $ZSH/oh-my-zsh.sh
 #source /usr/share/zsh/plugins/zsh-extract/extract.plugin.zsh
 source $ZSH_CUSTOM/plugins
 
+rmk () {
+	scrub -p dob $1
+	shred -zun 10 -v $1
+}
+
 # ||||||||||||||||||||||||||| ALIASSES ||||||||||||||||||||||||||||||||||||||||
 
 # Basics (cd, cp, ls, mv, rm, )
-alias bat="batcat"
 alias ..="cd .."
 alias cwork="cd ~/Documents/Workspaces"
 alias cdown="cd ~/Downloads"
@@ -92,17 +96,16 @@ alias cpic="cd ~/Pictures"
 alias cvid="cd ~/Videos"
 alias cmus="cd ~/Music"
 alias cscr="cd ~/Scripts"
-alias ll="lsd -lah"
+alias ll="lsd -lh"
+alias la="lsd -lah"
 alias llr="lsd -R"
 alias rmdr="rm -drf"
+alias icat="kitty +kitten icat"
 
-# CONGIG FILES
+# EDIT CONFIGURATION FILES
 alias srczsh="source ~/.zshrc"
 alias cfgzsh="vim ~/.zshrc"
 alias cfgp10k="vim ~/.p10k.zsh"
-#alias bandit="vim ~/Scripts/bandit.zsh"
-#alias qtilecfg="vim ~/.config/qtile/config.py"
-#alias wezcfg="vim ~/.config/wezterm/wezterm.lua"
 
 # Git dotfiles (bare repo)
 alias gitdot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
