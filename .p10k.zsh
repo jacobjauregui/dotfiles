@@ -95,7 +95,7 @@
     time                    # current time
     # =========================[ Line #2 ]=========================
     newline
-    vcs					    # git status
+    vcs					   # git status
     # ip                    # ip address and bandwidth usage for a specified network interface
     # public_ip             # public IP address
     # proxy                 # system-wide http/https/ftp proxy
@@ -128,13 +128,13 @@
 
   # Connect left prompt lines with these symbols. You'll probably want to use the same color
   # as POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND below.
-  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%238F╭─'
-  typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX='%238F├─'
-  typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%238F╰─'
+  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX='%F{#c3c2c1}╭─%f'
+  typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_PREFIX='%F{#c3c2c1}├─%f'
+  typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX='%F{#c3c2c1}╰─%f'
   # Connect right prompt lines with these symbols.
-  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_SUFFIX='%238F─╮'
-  typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_SUFFIX='%238F─┤'
-  typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_SUFFIX='%238F─╯'
+  typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_SUFFIX='%F{#c3c2c1}─╮%f'
+  typeset -g POWERLEVEL9K_MULTILINE_NEWLINE_PROMPT_SUFFIX='%238F─┤%f'
+  typeset -g POWERLEVEL9K_MULTILINE_LAST_PROMPT_SUFFIX='%F{#c3c2c1}─╯%f'
 
   # Filler between left and right prompt on the first prompt line. You can set it to ' ', '·' or
   # '─'. The last two make it easier to see the alignment between left and right prompt and to
@@ -174,8 +174,8 @@
 
   #################################[ os_icon: os identifier ]##################################
   # OS identifier color.
-  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND='#268BD2'
-  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND="#073642"
+  typeset -g POWERLEVEL9K_OS_ICON_FOREGROUND='#005aff'
+  typeset -g POWERLEVEL9K_OS_ICON_BACKGROUND="#4c4c4f"
   # Custom icon.
   typeset -g POWERLEVEL9K_OS_ICON_CONTENT_EXPANSION='' #  
 
@@ -204,19 +204,19 @@
 
   ##################################[ dir: current directory ]##################################
   # Current directory background color.
-  typeset -g POWERLEVEL9K_DIR_BACKGROUND='#EEE8D5'
+  typeset -g POWERLEVEL9K_DIR_BACKGROUND='#252525'
   # Default current directory foreground color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND='#002B36'
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND='#c2c3c1'
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
   # Replace removed segment suffixes with this symbol.
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
   # Color of the shortened directory segments.
-  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND='#073642'
+  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND='#8eefff'
   # Color of the anchor directory segments. Anchor segments are never shortened. The first
   # segment is always an anchor.
-  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND='#586E75'
+  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND='#00dfff'
   # Display anchor directory segments in bold.
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   # Don't shorten directories that contain any of these files. They are anchors.
@@ -282,7 +282,7 @@
 
   # The default icon shown next to non-writable and non-existent directories when
   # POWERLEVEL9K_DIR_SHOW_WRITABLE is set to v3.
-  # typeset -g POWERLEVEL9K_LOCK_ICON='⭐'
+  typeset -g POWERLEVEL9K_LOCK_ICON=''
 
   # POWERLEVEL9K_DIR_CLASSES allows you to specify custom icons and colors for different
   # directories. It must be an array with 3 * N elements. Each triplet consists of:
@@ -495,30 +495,30 @@
   # it will signify success by turning green.
   typeset -g POWERLEVEL9K_STATUS_OK=true
   typeset -g POWERLEVEL9K_STATUS_OK_VISUAL_IDENTIFIER_EXPANSION=' '  
-  typeset -g POWERLEVEL9K_STATUS_OK_FOREGROUND='#859900'
-  typeset -g POWERLEVEL9K_STATUS_OK_BACKGROUND='#EEE8D5'
+  typeset -g POWERLEVEL9K_STATUS_OK_FOREGROUND='#04ff0f'
+  typeset -g POWERLEVEL9K_STATUS_OK_BACKGROUND='#7c6c7c'
 
   # Status when some part of a pipe command fails but the overall exit status is zero. It may look
   # like this: 1|0.
   typeset -g POWERLEVEL9K_STATUS_OK_PIPE=true
   typeset -g POWERLEVEL9K_STATUS_OK_PIPE_VISUAL_IDENTIFIER_EXPANSION=' '
-  typeset -g POWERLEVEL9K_STATUS_OK_PIPE_FOREGROUND='#859900'
-  typeset -g POWERLEVEL9K_STATUS_OK_PIPE_BACKGROUND='#EEE8D5'
+  typeset -g POWERLEVEL9K_STATUS_OK_PIPE_FOREGROUND='#04ff0f'
+  typeset -g POWERLEVEL9K_STATUS_OK_PIPE_BACKGROUND='#7c6c7c'
 
   # Status when it's just an error code (e.g., '1'). No need to show it if prompt_char is enabled as
   # it will signify error by turning red.
   typeset -g POWERLEVEL9K_STATUS_ERROR=true
   typeset -g POWERLEVEL9K_STATUS_ERROR_VISUAL_IDENTIFIER_EXPANSION=' '
-  typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND='#DC322F'
-  typeset -g POWERLEVEL9K_STATUS_ERROR_BACKGROUND='#EEE8D5'
+  typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND='#ff5f6f'
+  typeset -g POWERLEVEL9K_STATUS_ERROR_BACKGROUND='#7c6c7c'
 
   # Status when the last command was terminated by a signal.
   typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL=true
   # Use terse signal names: "INT" instead of "SIGINT(2)".
   typeset -g POWERLEVEL9K_STATUS_VERBOSE_SIGNAME=false
   typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_VISUAL_IDENTIFIER_EXPANSION=' '
-  typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_FOREGROUND='#B58900'
-  typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_BACKGROUND='#EEE8D5'
+  typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_FOREGROUND='#cfdf47'
+  typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_BACKGROUND='#7c6c7c'
 
   # Status when some part of a pipe command fails and the overall exit status is also non-zero.
   # It may look like this: 1|0.
@@ -1657,8 +1657,8 @@
 
   ####################################[ time: current time ]####################################
   # Current time color.
-  typeset -g POWERLEVEL9K_TIME_FOREGROUND='#2AA198'
-  typeset -g POWERLEVEL9K_TIME_BACKGROUND='#002B36'
+  typeset -g POWERLEVEL9K_TIME_FOREGROUND='#00c1ff'
+  typeset -g POWERLEVEL9K_TIME_BACKGROUND='#100011'
   # Format for the current time: 09:51:02. See `man 3 strftime`.
   typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M}'
   # If set to true, time will update when you hit enter. This way prompts for the past
@@ -1677,7 +1677,7 @@
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
-    p10k segment -t '%F{#859900}'
+    p10k segment -t '%F{#00deff}%n%f %F{#eaeaea}󰚌 %f%F{#00deff}%m:%f %F{#1eff1e} %f'
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
@@ -1701,7 +1701,7 @@
 
   # User-defined prompt segments can be customized the same way as built-in segments.
   typeset -g POWERLEVEL9K_EXAMPLE_FOREGROUND=#0082fd
-  typeset -g POWERLEVEL9K_EXAMPLE_BACKGROUND='#FDF6E3'
+  typeset -g POWERLEVEL9K_EXAMPLE_BACKGROUND='#2e2e48'
   # typeset -g POWERLEVEL9K_EXAMPLE_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
   # Transient prompt works similarly to the builtin transient_rprompt option. It trims down prompt
