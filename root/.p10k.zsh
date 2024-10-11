@@ -1677,7 +1677,7 @@
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
-    p10k segment -t '%F{#df102a}%n%f %F{#ef8a1e}\udb80\ude38 %f%F{#df102a}%m:%f %F{#ff441e}\uf4df %f'
+    p10k segment -t '%F{#df102a}%n%f %F{#ef8a1e}󰈸 %f%F{#df102a}%m:%f %F{#ff441e} %f'
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
