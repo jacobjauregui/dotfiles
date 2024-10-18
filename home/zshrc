@@ -2,9 +2,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-if [[ -n $SSH_CONNECTION ]]; then
-	export EDITOR='vim'
-fi
 
 #||||||||||||||||||||||||| ENVIRONMENT VARIABLES ||||||||||||||||||||||||||||||
 
@@ -15,6 +12,8 @@ export LANG=en_US.UTF-8
 export PATH="$HOME/.local/bin:$PATH"
 #export ARCHFLAGS="-arch x86_64"
 export PATH="$HOME/.dotnet/tools:$PATH"
+export EDITOR="nvim"
+export TERM="xterm-kitty"
 
 # |||||||||||||||||||||||||||| CONFIGURATION ||||||||||||||||||||||||||||||||||
 
@@ -54,17 +53,17 @@ zstyle ':omz:update' frequency 13
 # ||||||||||||||||||||||||||||||||| PLUGINS |||||||||||||||||||||||||||||||||||
 
 plugins=(
-#    adb
+#   adb
     alias-finder
     aliases
     autopep8
     colored-man-pages
-#    emoji
+#   emoji
     emotty
     genpass
     git
     python
-#    ripgrep
+#   ripgrep
     sudo
     vi-mode
     web-search
@@ -76,17 +75,16 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
-#source /usr/share/zsh/plugins/zsh-extract/extract.plugin.zsh
 source $ZSH_CUSTOM/plugins
+#source /usr/share/zsh/plugins/zsh-extract/extract.plugin.zsh
 
 rmk () {
 	scrub -p dob $1
 	shred -zun 10 -v $1
 }
 
-# ||||||||||||||||||||||||||| ALIASSES ||||||||||||||||||||||||||||||||||||||||
+# ___________________________ ALIASSES ________________________________________
 
-# Basics (cd, cp, ls, mv, rm, )
 alias ..="cd .."
 alias cwork="cd ~/Documents/Workspaces"
 alias cdown="cd ~/Downloads"
@@ -100,14 +98,14 @@ alias ll="lsd -lh"
 alias la="lsd -lah"
 alias llr="lsd -R"
 alias rmdr="rm -drf"
-alias icat="kitty +kitten icat"
+alias img="kitty +kitten icat"
 
-# EDIT CONFIGURATION FILES
+# __________________________ CONFIGURATION FILES ________________________________
 alias srczsh="source ~/.zshrc"
-alias cfgzsh="vim ~/.zshrc"
-alias cfgp10k="vim ~/.p10k.zsh"
+alias cfgzsh="nvim ~/.zshrc"
+alias cfgp10k="nvim ~/.p10k.zsh"
 
-# Git dotfiles (bare repo)
+# __________________________ Git (common repo) ________________________________
 alias gitdot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 alias dota="gitdot add"
 alias dotb="gitdot branch"
@@ -124,7 +122,7 @@ alias dotre="gitdot reset"
 alias dots="gitdot checkout"
 alias dotst="gitdot status"
 
-# Git
+# __________________________ Git (bare repo dotfiles) __________________________
 alias gita="git add"
 alias gitb="git branch"
 alias gitc="git commit -m"

@@ -1,0 +1,111 @@
+" ________________________ GENERAL SETTINGS ___________________________________
+
+let &t_SI = "\e[5 q"
+let &t_SR = "\e[4 q"
+let &t_EI = "\e[1 q"
+set t_Co=256
+syntax on
+set backspace=indent,eol,start
+set encoding=utf-8
+set clipboard=unnamed
+set number
+set colorcolumn=80
+set numberwidth=6
+set ruler
+set cursorline
+set cursorlineopt=both
+set scroll=3
+set scrolloff=9
+set cmdheight=1
+set showmode
+set laststatus=2
+set list
+set listchars=tab:│\ ,space:\ ,trail:\ ,"eol:\\u21b2
+set fillchars=vert:│,fold:\\u2508,foldopen:,foldclose:,eob:\ ,lastline:\ ,
+set linespace=0
+set noexpandtab
+set autoindent
+set shiftwidth=4
+set startofline
+set tabstop=4
+set smartindent
+set softtabstop=4
+set shiftround
+set nowrap
+
+" ________________________________ Keymaps ____________________________________
+
+let mapleader=' '
+
+" --- NORMAL MODE ---
+nmap i <Up>
+nmap j <Left>
+nmap k <Down>
+nmap l <Right>
+nmap o <S-O>
+nnoremap m o
+nnoremap h a
+nnoremap a i
+nnoremap vv <C-v>
+nnoremap <Leader>i gg
+nnoremap <Leader>j <Home>
+nnoremap <Leader>k G
+nnoremap <Leader>l <End>
+nnoremap ; :
+nnoremap . >>
+nnoremap , <<
+
+" --- INSERT MODE ---
+inoremap <A-n> <Esc>
+inoremap <A-h> <BS>
+inoremap <A-k> <Down>
+inoremap <A-i> <Up>
+inoremap <A-j> <Left>
+inoremap <A-l> <Right>
+inoremap <Leader><Space> <TAB>
+
+" --- VISUAL MODE
+vmap i <Up>
+vmap j <Left>
+vmap k <Down>
+vmap l <Right>
+vnoremap <Leader>i gg
+vnoremap <Leader>j <Home>
+vnoremap <Leader>k G
+vnoremap <Leader>l <End>
+vnoremap v <Esc>
+vnoremap . >
+vnoremap , <
+
+"highlight reset
+
+highlight NORMAL cterm=NONE ctermbg=0 ctermfg=7
+highlight ColorColumn cterm=NONE ctermbg=1 ctermfg=NONE "column 80.
+highlight Cursor cterm=NONE ctermbg=15 ctermfg=0 "Cursor normal mode.
+highlight iCursor cterm=NONE ctermbg=15 ctermfg=0 "Cursor insert mode.
+highlight CursorLine cterm=NONE ctermbg=8 ctermfg=NONE "Cursor line.
+highlight CursorLineNr cterm=NONE ctermbg=NONE ctermfg=7 "Current number line.
+highlight LineNr cterm=NONE ctermbg=8 ctermfg=10 "Numbers column.
+highlight StatusLine cterm=NONE ctermbg=12 ctermfg=8 "Status line.
+highlight EndOfBuffer cterm=NONE ctermbg=bg ctermfg=bg "Empty lines (~).
+
+" --- SYNTAX ---
+highlight Statement cterm=NONE ctermfg=4 ctermbg=NONE
+highlight Boolean cterm=italic ctermfg=13 ctermbg=NONE
+highlight Comment cterm=italic ctermfg=11 ctermbg=NONE
+highlight Keyword cterm=NONE ctermfg=4 ctermbg=NONE
+highlight Constant cterm=NONE ctermfg=15 ctermbg=NONE
+highlight Identifier cterm=NONE ctermfg=15 ctermbg=NONE
+highlight Number cterm=NONE ctermfg=9 ctermbg=NONE
+highlight Float cterm=NONE ctermfg=9 ctermbg=NONE
+highlight String cterm=NONE ctermfg=2 ctermbg=NONE
+highlight Character cterm=NONE ctermfg=2 ctermbg=NONE
+highlight Function cterm=NONE ctermfg=3 ctermbg=NONE
+highlight Conditional cterm=NONE ctermfg=5 ctermbg=NONE
+highlight Repeat cterm=NONE ctermfg=5 ctermbg=NONE
+highlight Operator cterm=NONE ctermfg=6 ctermbg=NONE
+highlight Delimiter cterm=NONE ctermfg=3 ctermbg=NONE
+highlight Type cterm=NONE ctermfg=6 ctermbg=NONE
+highlight Label cterm=NONE ctermfg=5 ctermbg=NONE
+highlight Error cterm=underline ctermfg=1 ctermbg=NONE
+highlight PreProc cterm=NONE ctermfg=5 ctermbg=NONE
