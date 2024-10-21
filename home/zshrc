@@ -5,15 +5,16 @@ fi
 
 #||||||||||||||||||||||||| ENVIRONMENT VARIABLES ||||||||||||||||||||||||||||||
 
+#export ARCHFLAGS="-arch x86_64"
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$ZSH/custom"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
+export XDG_CONFIG_HOME="$HOME/.config"
 export MANPATH="/usr/local/man:$MANPATH"
 export LANG=en_US.UTF-8
-export PATH="$HOME/.local/bin:$PATH"
-#export ARCHFLAGS="-arch x86_64"
-export PATH="$HOME/.dotnet/tools:$PATH"
 export EDITOR="nvim"
-export TERM="xterm-kitty"
+export SUDO_PROMPT="%{$fg[yellow]󰌾 %} Password: "
 
 # |||||||||||||||||||||||||||| CONFIGURATION ||||||||||||||||||||||||||||||||||
 
@@ -76,15 +77,47 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH_CUSTOM/plugins
-#source /usr/share/zsh/plugins/zsh-extract/extract.plugin.zsh
 
-rmk () {
-	scrub -p dob $1
-	shred -zun 10 -v $1
+lsu () {
+	if [[ (-d $1 && ! -w $1) || ! -w $1 ]]; then
+		echo "Permission denied to write \'$!\'"
+	elif [[ -d $1 && (-w $1 || -r $1) ]]; then
+		lsd -la $1
+	elif [[ -w $1 && ! -d $1 ]]; then
+		nvim $1
+	else
+		echo "done"
+	fi
+}
+
+xred () {
+	sync
+	if [[ ! -w $1 || ( -d $1 && ! -w $1 ) ]]; then
+		echo "Permission denied!"
+		exit
+	elif [[ -d $1 ]]; then
+		find $1 -type f | xargs scrub -Sfp usarmy > /dev/null 2>&1
+		find $1 -type f | xargs shred -fn 32 -zux
+		rm -drf $1
+		echo "All clean!\n"
+	else
+		scrub -fp usarmy $1 > /dev/null 2>&1
+		shred -fn 32 -zux $1
+		echo "All clean!\n"
+	fi
+}
+
+nv () {
+	if [[ -w $1 ]]; then
+		nvim $1
+	elif [[ -a $1 ]]; then
+		sudo nvim $1
+	else
+		touch $1; nvim $1
+	fi
 }
 
 # ___________________________ ALIASSES ________________________________________
-
 alias ..="cd .."
 alias cwork="cd ~/Documents/Workspaces"
 alias cdown="cd ~/Downloads"
@@ -93,17 +126,33 @@ alias cdesk="cd ~/Desktop"
 alias cpic="cd ~/Pictures"
 alias cvid="cd ~/Videos"
 alias cmus="cd ~/Music"
-alias cscr="cd ~/Scripts"
 alias ll="lsd -lh"
 alias la="lsd -lah"
 alias llr="lsd -R"
 alias rmdr="rm -drf"
-alias img="kitty +kitten icat"
+alias imgk="kitty +kitten icat"
+alias imgw="wezterm imgcat"
+
+# __________________________ UPDATES ________________________________
+alias src="source ~/.zshrc"
+alias upfont="fc-cache -fv"
+alias upgrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+alias upsys="sudo pacman -Syu"
 
 # __________________________ CONFIGURATION FILES ________________________________
-alias srczsh="source ~/.zshrc"
-alias cfgzsh="nvim ~/.zshrc"
-alias cfgp10k="nvim ~/.p10k.zsh"
+alias cfgzs="nvim ~/.zshrc"
+alias cfgp10="nvim ~/.p10k.zsh"
+alias cfgwz="nvim ~/.config/wezterm/wezterm.lua"
+alias cfgaw="nvim ~/.config/awesome/rc.lua"
+alias addr="ip addr"
+
+# __________________________ PACKAGES ________________________________
+alias parus="paru -Ss"
+alias parui="paru -S"
+alias pacs="pacman -Ss"
+alias paci="sudo pacman -S"
+#alias pacr="sudo pacman -Rcu"
+#alias purge="sudo pacman -Rcc $(pacman -Quq)"
 
 # __________________________ Git (common repo) ________________________________
 alias gitdot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
@@ -142,3 +191,7 @@ alias gitf="git fetch"
 alias gitcl="git clone"
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
