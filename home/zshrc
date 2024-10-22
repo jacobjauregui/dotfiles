@@ -1,65 +1,56 @@
+# Custom Zsh/Oh-My-Zsh configurations.
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+if [[ -f "/usr/bin/wezterm" ]]; then
+	export TERMINAL="wezterm"
+elif [[ -f "/usr/bin/kitty" ]]; then
+	export TERMINAL="kitty"
+else
+	sudo pacman -S wezterm
+	export TERMINAL="wezterm"
+fi
 
-#||||||||||||||||||||||||| ENVIRONMENT VARIABLES ||||||||||||||||||||||||||||||
-
+# _______________________ [ ENVIRONMENT VARIABLES ] ___________________________
 #export ARCHFLAGS="-arch x86_64"
-export ZSH="$HOME/.oh-my-zsh"
-export ZSH_CUSTOM="$ZSH/custom"
+export EDITOR="nvim"
+export LANG=en_US.UTF-8
+export MANPATH="/usr/local/man:$MANPATH"
+export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.dotnet/tools:$PATH"
+export SUDO_PROMPT="$fg[yellow]󰌾 <U+F033E> Password: "
 export XDG_CONFIG_HOME="$HOME/.config"
-export MANPATH="/usr/local/man:$MANPATH"
-export LANG=en_US.UTF-8
-export EDITOR="nvim"
-export SUDO_PROMPT="%{$fg[yellow]󰌾 %} Password: "
+export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="$ZSH/custom"
 
-# |||||||||||||||||||||||||||| CONFIGURATION ||||||||||||||||||||||||||||||||||
-
+# _______________________ [ ZSH CONFIGURATIONS ] ______________________________
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
 #ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell`" "agnoster" )
-
 POWERLEVEL_LEGACY_ICON_SPACING="true"
-
 ZLE_RPROMPT_INDENT=0
-
 CASE_SENSITIVE="true"
-
 HYPHEN_INSENSITIVE="true"
-
 DISABLE_MAGIC_FUNCTIONS="false"
-
 DISABLE_LS_COLORS="false"
-
 DISABLE_AUTO_TITLE="false"
-
 ENABLE_CORRECTION="true"
-
-# COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-
 COMPLETION_WAITING_DOTS="true"
-
 DISABLE_UNTRACKED_FILES_DIRTY="false"
-
 HIST_STAMPS="mm/dd/yyyy"
-
-# zstyle ':omz:update' mode reminder
-# zstyle ':omz:update' mode disabled
+#zstyle ':omz:update' mode reminder
+#zstyle ':omz:update' mode disabled
 zstyle ':omz:update' mode auto
 zstyle ':omz:update' frequency 13
 
-# ||||||||||||||||||||||||||||||||| PLUGINS |||||||||||||||||||||||||||||||||||
-
+# _________________________ [ PLUGINS ] _______________________________________
 plugins=(
-#   adb
     alias-finder
     aliases
     autopep8
     colored-man-pages
-#   emoji
     emotty
     genpass
     git
@@ -78,18 +69,54 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 source $ZSH_CUSTOM/plugins
 
-lsu () {
-	if [[ (-d $1 && ! -w $1) || ! -w $1 ]]; then
-		echo "Permission denied to write \'$!\'"
-	elif [[ -d $1 && (-w $1 || -r $1) ]]; then
-		lsd -la $1
-	elif [[ -w $1 && ! -d $1 ]]; then
-		nvim $1
-	else
-		echo "done"
-	fi
+# _________________________ [ FUNCTIONS ] _____________________________________
+# --- Shortcuts for pacman.
+pakman () {
+	case $1 in
+		-s)
+			echo "Looking for $2...\n"
+			pacman -Ss $2
+			;;
+		-u)
+			echo "Upgrading...\n"
+			sudo pacman -Syu
+			;;
+		-i)
+			echo "Installing $2...\n"
+			sudo pacman -S $2
+			;;
+		-r)
+			echo "Removing $2...\n"
+			sudo pacman -Rsun $2
+			;;
+		-d)
+			echo "Verifying if $2 is already installed...\n"
+			pacman -Qs $2
+			;;
+		-l)
+			echo "Installed packages:\n"
+			pacman -Qe
+			;;
+		*)
+			echo "Unknown option \"$1\""
+			;;
+	esac
 }
 
+aur () {
+	case $1 in
+		-s)
+			echo "Looking for $2...\n"
+			paru -Ss $2
+			;;
+		-i)
+			echo "Installing $2...\n"
+			paru -S $2
+			;;
+	esac
+}
+
+# --- Remove files securely
 xred () {
 	sync
 	if [[ ! -w $1 || ( -d $1 && ! -w $1 ) ]]; then
@@ -113,48 +140,54 @@ nv () {
 	elif [[ -a $1 ]]; then
 		sudo nvim $1
 	else
-		touch $1; nvim $1
+		nvim $1
 	fi
 }
 
-# ___________________________ ALIASSES ________________________________________
+img () {
+	if [[ $TERMINAL == "wezterm" ]]; then
+		wezterm imgcat $1
+	elif [ $TERMINAL == "kitty" ]; then
+		kitty +kitten icat $1
+	else
+		echo "Terminal $TERM no compatible"
+	fi
+}
+
+# _________________________ [ ALIASSES ] ______________________________________
+
+# --- Common commands.
 alias ..="cd .."
-alias cwork="cd ~/Documents/Workspaces"
-alias cdown="cd ~/Downloads"
-alias cdoc="cd ~/Documents"
+alias addr="ip addr"
+alias cconf="cd ~/.config"
 alias cdesk="cd ~/Desktop"
+alias cdoc="cd ~/Documents"
+alias cdot="cd ~/.dotfiles"
+alias cdown="cd ~/Downloads"
+alias cmus="cd ~/Music"
 alias cpic="cd ~/Pictures"
 alias cvid="cd ~/Videos"
-alias cmus="cd ~/Music"
-alias ll="lsd -lh"
+alias cwork="cd ~/Documents/Workspaces"
+alias l="lsd"
 alias la="lsd -lah"
+alias ll="lsd -lh"
 alias llr="lsd -R"
 alias rmdr="rm -drf"
-alias imgk="kitty +kitten icat"
-alias imgw="wezterm imgcat"
 
-# __________________________ UPDATES ________________________________
+# --- Edit configuration files.
+alias cfgzs="nvim ~/.zshrc"
+alias cfgpl="nvim ~/.p10k.zsh"
+alias cfgwz="nvim ~/.config/wezterm/wezterm.lua"
+alias cfgaw="nvim ~/.config/awesome/rc.lua"
+alias keymap="nvim ~/.config/awesome/configuration/keys.lua"
+
+# --- Refresh.
 alias src="source ~/.zshrc"
 alias upfont="fc-cache -fv"
 alias upgrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-alias upsys="sudo pacman -Syu"
+alias updb="sudo updatedb"
 
-# __________________________ CONFIGURATION FILES ________________________________
-alias cfgzs="nvim ~/.zshrc"
-alias cfgp10="nvim ~/.p10k.zsh"
-alias cfgwz="nvim ~/.config/wezterm/wezterm.lua"
-alias cfgaw="nvim ~/.config/awesome/rc.lua"
-alias addr="ip addr"
-
-# __________________________ PACKAGES ________________________________
-alias parus="paru -Ss"
-alias parui="paru -S"
-alias pacs="pacman -Ss"
-alias paci="sudo pacman -S"
-#alias pacr="sudo pacman -Rcu"
-#alias purge="sudo pacman -Rcc $(pacman -Quq)"
-
-# __________________________ Git (common repo) ________________________________
+# --- Git (bare repo dotfiles).
 alias gitdot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 alias dota="gitdot add"
 alias dotb="gitdot branch"
@@ -171,7 +204,7 @@ alias dotre="gitdot reset"
 alias dots="gitdot checkout"
 alias dotst="gitdot status"
 
-# __________________________ Git (bare repo dotfiles) __________________________
+# --- Git (common repo).
 alias gita="git add"
 alias gitb="git branch"
 alias gitc="git commit -m"
@@ -190,8 +223,11 @@ alias gitsw="git switch"
 alias gitf="git fetch"
 alias gitcl="git clone"
 
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# --- Github (Using github CLI).
+alias gh-login="gh auth login"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# __________________________ [ Load modules ] _________________________________
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
