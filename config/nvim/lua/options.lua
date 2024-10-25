@@ -2,7 +2,8 @@
 local o = vim.o
 local g = vim.g
 
-g.mapleader = " "
+g.copilot_node_command = '~/.nvm/versions/node/v23.0.0/bin/node'
+g.mapleader = ' '
 
 o.number = true
 o.colorcolumn = '80'

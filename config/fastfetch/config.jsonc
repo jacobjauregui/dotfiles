@@ -1,0 +1,102 @@
+{
+	"$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+	"logo": {
+		"type": "iterm",
+		"source": "~/Pictures/Archlinux-tango.png",
+		"padding": { 
+			"top": 1,
+			"right": 2,
+			"left": 2,
+			"bottom": 1
+		},
+		"width": 44,
+		"height": 15
+	},
+	"display": {
+		"separator": " ",
+		"constants": [
+			"─────────────────",
+			"│",
+			"┌",
+			"├",
+			"└",
+			"┐",
+			"┤",
+			"┘"
+		]
+	},
+	"modules": [
+		{
+			"type": "custom",
+			"format": "{$3}{$1} {#36}Hardware Information{#} {$1}{$6}"
+		},
+		{
+			"type": "cpu",
+			"key": "{$2} {#37}  {#90}{icon}{#}  {#37}CPU:{#} ",
+			"format": "{1} ({5}) @ {7}GHz {8} {$2}"
+		},
+		{
+			"type": "memory",
+			"key": "{$2} {#37}  {#32}{icon}{#}  {#37}RAM:{#} ",
+			"format": "{used} / {total} ({3}) {4}   {$2}"
+		},
+		{
+			"type": "disk",
+			"key": "{$2} {#37}  {#90}{icon}  {#37}Disk:{#}",
+			"format": "{1} / {2} ({3})                {$2}"
+		},
+		{
+			"type": "gpu",
+			"key": "{$2} {#37}  {#90}{icon}{#}  {#37}GPU:{#}"
+		},
+		{
+			"type": "display",
+			"key": "{$2} {#37}  {#30}{icon}{#}  {#37}Display:{#} "
+		},
+		{
+			"type": "custom",
+			"format": "{$5}{$1}──────────────────────{$1}{$8}"
+		},
+		{
+			"type": "custom",
+			"format": "{$3}{$1} {#36}Software Information{#} {$1}{$6}"
+		},
+		{
+			"type": "os",
+			"key": "{$2} {#37}  {#34}󰣇 {#} {#37}OS:{#}",
+			"keyColor": "blue"
+		},
+		{
+			"type": "kernel",
+			"key": "{$2} {#37}  {#90}{icon}{#}  {#37}Kernel:{#}"
+		},
+		{
+			"type": "shell",
+			"key": "{$2} {#37}  {#37}{#}  {#37}Shell:{#}"
+		},
+		{
+			"type": "terminal",
+			"key": "{$2} {#37}  {#37}{#}  {#37}Terminal:{#}"
+		},
+		{
+			"type": "wm", 
+			"key": "{$2} {#37}  {#32}{icon}{#}  {#37}Window Manager:{#}"
+		},
+		{
+			"type": "packages",
+			"key": "{$2} {#37}  {#33}󰮯{#}  {#37}Packages:{#}"
+		},
+		{
+			"type": "localip",
+			"key": "{$2} {#37}  {#37}{icon}{#}  {#37}Local IP:{#}"
+		},
+		{
+			"type": "custom",
+			"format": "{$2} {#37}  {#37}{#}  {#37}Colors:{#} {#30}  {#31}  {#32}  {#33}  {#34}  {#35}  {#36}  {#37} "
+		},
+		{
+			"type": "custom",
+			"format": "{$5}{$1}──────────────────────{$1}{$8}"
+		}
+	]
+}
