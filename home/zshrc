@@ -21,7 +21,7 @@ export MANPATH="/usr/local/man:$MANPATH"
 export NVM_DIR="$HOME/.nvm"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.dotnet/tools:$PATH"
-export SUDO_PROMPT="$fg[yellow]󰌾 <U+F033E> Password: "
+export SUDO_PROMPT="󰌾 Password: "
 export XDG_CONFIG_HOME="$HOME/.config"
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$ZSH/custom"
@@ -107,7 +107,11 @@ aur () {
 	case $1 in
 		-s)
 			echo "Looking for $2...\n"
-			paru -Ss $2
+			if [[ -z $(paru -Ss $2) ]]; then
+				echo "Package '$2' not found!"
+			else
+				paru -Ss $2
+			fi
 			;;
 		-i)
 			echo "Installing $2...\n"
@@ -121,16 +125,16 @@ xred () {
 	sync
 	if [[ ! -w $1 || ( -d $1 && ! -w $1 ) ]]; then
 		echo "Permission denied!"
-		exit
+		exit 1
 	elif [[ -d $1 ]]; then
 		find $1 -type f | xargs scrub -Sfp usarmy > /dev/null 2>&1
 		find $1 -type f | xargs shred -fn 32 -zux
 		rm -drf $1
-		echo "All clean!\n"
+		echo "All clean!"
 	else
 		scrub -fp usarmy $1 > /dev/null 2>&1
 		shred -fn 32 -zux $1
-		echo "All clean!\n"
+		echo "All clean!"
 	fi
 }
 
