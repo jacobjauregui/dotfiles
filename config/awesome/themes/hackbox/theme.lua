@@ -1,20 +1,21 @@
 --  _______________________ [ HackBox Theme ] _________________________________
 
 local gears = require('gears')
-local fs = require('gears.filesystem')
-local hackbox = fs.get_configuration_dir() .. 'themes/hackbox/'
 local xresources = require('beautiful.xresources')
+local fs = gears.filesystem
 local dpi = xresources.apply_dpi
 
-local font_name = 'Liberation'
-local icon_font_name = 'VictorMono NF'
+local hackbox = fs.get_configuration_dir() .. 'themes/hackbox/'
+local font_name = 'VictorMono Nerd Font'
+--local font_name = 'Liberation'
+--local icon_font_name = 'VictorMono NF'
 
 local theme = {
 	wallpaper = hackbox .. 'background.png',
-	awesome_icon = hackbox .. 'menu_icon.png',
+	awesome_icon = fs.get_configuration_dir() .. 'themes/hackteam.svg',
 	font = font_name .. ' 11',
-	icon_font = icon_font_name .. ' 18',
-	font_tag_list = icon_font_name .. ' 16',
+	--icon_font = icon_font_name .. ' 18',
+	font_tag_list = font_name .. ' 13',
 	transparent = '#4f334ed6',
 	color0 = '#191a25',
 	color8 = '#2d3343',
@@ -32,20 +33,20 @@ local theme = {
 	color14 = '#23f3f1',
 	color7 = '#bcc5db',
 	color15 = '#e6edfd',
-	bg_normal = '#43223c',
-	bg_focus = '#273243',
-	bg_urgent = '#3e333f',
-	fg_normal = '#f82387',
-	fg_focus = '#2ccddf',
+	bg_normal = '#252628',
+	fg_normal = '#bcc5db',
+	border_normal = '#d94472' ,
+	bg_focus = '#43223c',
+	fg_focus = '#24ceff',
+	border_focus = '#23acd3',
+	bg_urgent = '#ee738f',
 	fg_urgent = '#9b304b',
-	fg_widget = '#AECF96',
-	fg_center_widget = '#88A175',
-	fg_end_widget = '#FF5656',
-	bg_widget = '#494B4F',
-	border_widget = '#3F3F3F',
-	border_normal = '#3e8ca3',
-	border_focus = '#c96d82',
-	border_marked = '#cceff3',
+--	border_widget = '#3F3F3F',
+--	border_marked = '#cceff3',
+--	fg_widget = '#AECF96',
+--	fg_center_widget = '#88A175',
+--	fg_end_widget = '#FF5656',
+--	bg_widget = '#494B4F',
 }
 
 theme.bg_systray = theme.bg_normal
@@ -73,39 +74,38 @@ theme.mouse_finder_color = '#CC9393'
 --theme.mouse_finder_radius
 --theme.mouse_finder_factor
 
---theme.taglist_bg_focus = theme.transparent
---theme.taglist_bg_urgent = theme.transparent
---theme.taglist_bg_occupied = theme.transparent
---theme.taglist_bg_empty = theme.transparent
---theme.taglist_bg_volatile = theme.transparent
---theme.taglist_fg_focus = theme.transparent
---theme.taglist_fg_urgent = theme.transparent
---theme.taglist_fg_occupied = theme.transparent
---theme.taglist_fg_empty = theme.transparent
---theme.taglist_fg_volatile = theme.transparent
+theme.taglist_bg_focus = '#414758'
+theme.taglist_bg_urgent = '#414758'
+theme.taglist_bg_occupied = '#414758'
+theme.taglist_bg_empty = '#414758'
+theme.taglist_bg_volatile = theme.transparent
+theme.taglist_fg_focus = theme.fg_focus
+theme.taglist_fg_urgent = theme.fg_urgent
+theme.taglist_fg_occupied = theme.fg_normal
+theme.taglist_fg_empty = theme.color0
+theme.taglist_fg_volatile = theme.bg_focus
 --theme.taglist_squares_sel   = hackbox .. 'taglist/squarefz.png'
 --theme.taglist_squares_unsel = hackbox .. 'taglist/squarez.png'
---theme.taglist_squares_resize = 'false'
+theme.taglist_squares_resize = 'false'
 
-theme.tasklist_bg_focus = theme.bg_normal
-theme.tasklist_bg_urgent = theme.bg_normal
-theme.tasklist_bg_occupied = theme.bg_normal
-theme.tasklist_bg_empty = theme.bg_normal
-theme.tasklist_bg_volatile = theme.bg_normal
+theme.tasklist_bg_focus = theme.transparent
 theme.tasklist_fg_focus = theme.fg_focus
+theme.tasklist_bg_urgent = theme.transparent
 theme.tasklist_fg_urgent = theme.fg_urgent
+theme.tasklist_bg_occupied = theme.transparent
 theme.tasklist_fg_occupied = theme.color2
+theme.tasklist_bg_empty = theme.transparent
 theme.tasklist_fg_empty = theme.fg_normal
+theme.tasklist_bg_volatile = theme.transparent
 theme.tasklist_fg_volatile = theme.color1
 
-theme.titlebar_bg_focus  = theme.transparent 
-theme.titlebar_bg_normal = theme.bg_normal
-theme.titlebar_size = dpi(10)
+theme.titlebar_bg_focus  = theme.bg_normal
+theme.titlebar_bg_normal = theme.transparent
 
 theme.tooltip_font = font_name .. ' 10'
 theme.tooltip_bg_color = theme.bg_normal
 theme.tooltip_fg_color = theme.fg_focus
-theme.tooltip_border_color = theme.border_focus
+theme.tooltip_border_color = theme.border_normal
 theme.tooltip_opacity = 1.0
 
 theme.layout_tile       = hackbox .. 'layouts/tile.png'
