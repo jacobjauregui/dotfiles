@@ -100,98 +100,119 @@ local taglist_buttons = gears.table.join(
                 )
 
 local tasklist_buttons = gears.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  c:emit_signal(
-                                                      "request::activate",
-                                                      "tasklist",
-                                                      {raise = true}
-                                                  )
-                                              end
-                                          end),
-                     awful.button({ }, 3, function()
-                                              awful.menu.client_list({ theme = { width = 250 } })
-                                          end),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                          end))
+awful.button({ }, 1, function(c)
+	if c == client.focus then
+		c.minimized = true
+	else
+		c:emit_signal("request::activate", "tasklist", {raise = true})
+	end
+	end),
+	awful.button({ }, 3, function()
+		awful.menu.client_list({ theme = { width = 250 } })
+	end),
+	awful.button({ }, 4, function ()
+		awful.client.focus.byidx(1)
+	end),
+	awful.button({ }, 5, function ()
+		awful.client.focus.byidx(-1)
+	end)
+	)
 
 local function set_wallpaper(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
+	if beautiful.wallpaper then
+		local wallpaper = beautiful.wallpaper
+		if type(wallpaper) == "function" then
+			wallpaper = wallpaper(s)
+		end
+		gears.wallpaper.maximized(wallpaper, s, true)
+	end
 end
 
 screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
-    set_wallpaper(s)
-    awful.tag({ "  ", "  ", "  ", "  ", "  ", "  " }, s, awful.layout.layouts[1])
-    s.mypromptbox = awful.widget.prompt()
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(gears.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
-    s.mytaglist = awful.widget.taglist {
-		screen  = s,
-		filter  = awful.widget.taglist.filter.all,
-		buttons = taglist_buttons
-	}
+set_wallpaper(s)
+awful.tag({ "  ", "  ", "  ", "  ", "  ", "  " }, s, awful.layout.layouts[1])
+s.mypromptbox = awful.widget.prompt()
+s.mylayoutbox = awful.widget.layoutbox(s)
+s.mylayoutbox:buttons(gears.table.join(
+					   awful.button({ }, 1, function () awful.layout.inc( 1) end),
+					   awful.button({ }, 3, function () awful.layout.inc(-1) end),
+					   awful.button({ }, 4, function () awful.layout.inc( 1) end),
+					   awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+s.mytaglist = awful.widget.taglist {
+	screen  = s,
+	filter  = awful.widget.taglist.filter.all,
+	buttons = taglist_buttons
+}
 
-	s.mytasklist = awful.widget.tasklist {
-		screen  = s,
-		filter  = awful.widget.tasklist.filter.currenttags,
-		buttons = tasklist_buttons
-	}
-	s.mywibox = awful.wibar({ 
-		position = "top", 
-		screen = s,
-		size = dpi(20),
-		shape = function(cr, w, h) gears.shape.rounded_rect(cr, w, h, 36) end,
+s.mytasklist = awful.widget.tasklist {
+	screen  = s,
+	filter  = awful.widget.tasklist.filter.currenttags,
+	buttons = tasklist_buttons
+}
+s.mywibox = awful.wibar({ 
+	position = "top", 
+	screen = s,
+		size = dpi(32),
+		shape = function(cr, w, h) gears.shape.rounded_rect(cr, w, h, 20) end,
 	})
 	s.mywibox:setup {
 		layout = wibox.layout.align.horizontal,
-		{ -- Left widgets
+		-- {{{ Left widgets
+		{
 			{
-				mylauncher,
-				layout = wibox.layout.fixed.horizontal,
+				wibox.container.margin(mylauncher, dpi(15), dpi(15), dpi(0), dpi(0),'#00000000'),
+				forced_width = 64,
+				forced_height = 64,
+				layout = wibox.layout.fixed.horizontal
 			},
 			{
-				s.mypromptbox,
-				layout = wibox.layout.fixed.horizontal,
+				wibox.container.margin(s.mypromptbox, dpi(15), dpi(10), dpi(0), dpi(0)),
+				layout = wibox.layout.fixed.horizontal
 			},
-			layout = wibox.layout.fixed.horizontal,
-			--s.mytasklist,
+			spacing = dpi(10),
+			layout = wibox.layout.fixed.horizontal
 		},
-		{ -- Middle widgets
+		-- }}}
+		-- {{{ Middle widgets
+		{
 			{
 				layout = wibox.layout.fixed.horizontal
 			},
 			{
-				align = "center",
-				s.mytaglist,
-				layout = wibox.layout.flex.horizontal
+				wibox.container.margin(s.mytaglist, dpi(24), dpi(24), dpi(3), dpi(3), '#00000000'),
+				forced_height = dpi(15),
+				forced_width = dpi(300),
+				opacity = 1.0,
+				--s.mytaglist,
+				layout = wibox.layout.fixed.horizontal
 			},
+			{
+				layout = wibox.layout.fixed.horizontal
+			},
+			spacing = dpi(450),
 			layout = wibox.layout.fixed.horizontal
 		},
-		{ -- Right widgets
+		-- }}}
+		-- {{{ Right widgets
+		{
+			{
+				wibox.widget.systray(),
+				layout = wibox.layout.fixed.horizontal,
+			},
+			{
+				wibox.container.margin(mytextclock, dpi(10), dpi(10), dpi(5), dpi(5)),
+				layout = wibox.layout.fixed.horizontal,
+			},
+			{
+				wibox.container.margin(s.mylayoutbox, dpi(10), dpi(15), dpi(5), dpi(5)),
+				layout = wibox.layout.fixed.horizontal,
+			},
+			spacing = dpi(10),
 			layout = wibox.layout.fixed.horizontal,
-			wibox.widget.systray(),
-			s.mylayoutbox,
 		},
+		-- }}}
 	}
 end)
 
@@ -503,7 +524,7 @@ client.connect_signal("request::titlebars", function(c)
 					awful.titlebar.widget.closebutton    (c),
 					awful.titlebar.widget.minimizebutton (c),
 					awful.titlebar.widget.maximizedbutton(c),
-					spacing = dpi(6),
+					spacing = dpi(12),
 					layout = wibox.layout.fixed.horizontal()
 				},
 				layout = wibox.layout.fixed.horizontal

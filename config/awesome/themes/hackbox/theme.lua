@@ -7,14 +7,14 @@ local xresources = require('beautiful.xresources')
 local dpi = xresources.apply_dpi
 
 local font_name = 'Liberation'
-local icon_font_name = 'ShureTechMono Nerd Font Mono'
+local icon_font_name = 'VictorMono NF'
 
 local theme = {
 	wallpaper = hackbox .. 'background.png',
-	awesome_icon = hackbox .. 'awesomeArch.png',
+	awesome_icon = hackbox .. 'menu_icon.png',
 	font = font_name .. ' 11',
 	icon_font = icon_font_name .. ' 18',
-	font_tag_list = icon_font_name .. ' 13',
+	font_tag_list = icon_font_name .. ' 16',
 	transparent = '#4f334ed6',
 	color0 = '#191a25',
 	color8 = '#2d3343',
@@ -35,8 +35,8 @@ local theme = {
 	bg_normal = '#43223c',
 	bg_focus = '#273243',
 	bg_urgent = '#3e333f',
-	fg_normal = '#d84377',
-	fg_focus = '#4cadcf',
+	fg_normal = '#f82387',
+	fg_focus = '#2ccddf',
 	fg_urgent = '#9b304b',
 	fg_widget = '#AECF96',
 	fg_center_widget = '#88A175',
@@ -50,11 +50,11 @@ local theme = {
 
 theme.bg_systray = theme.bg_normal
 
-theme.bar_radius = dpi(10)
-theme.border_radius = dpi(12)
+--theme.bar_radius = dpi(10)
+--theme.border_radius = dpi(12)
 theme.border_width = dpi(1)
-theme.client_radius = dpi(10)
-theme.useless_gap = dpi(1) -- default = 0
+--theme.client_radius = dpi(10)
+theme.useless_gap = dpi(0) -- default = 0
 theme.tooltip_border_width = dpi(1)
 
 theme.menu_border_width = dpi(1)
@@ -65,7 +65,7 @@ theme.menu_bg_focus = theme.bg_focus
 theme.menu_fg_normal = theme.fg_normal
 theme.menu_fg_focus = theme.fg_focus
 theme.menu_border_color = '#314c63'
---theme.menu_submenu_icon = hackbox .. 'default/submenu.png'
+theme.menu_submenu_icon = gears.filesystem.get_themes_dir() .. 'default/submenu.png'
 
 theme.mouse_finder_color = '#CC9393'
 --theme.mouse_finder_timeout
@@ -98,7 +98,6 @@ theme.tasklist_fg_occupied = theme.color2
 theme.tasklist_fg_empty = theme.fg_normal
 theme.tasklist_fg_volatile = theme.color1
 
-theme.titlebars_enabled = false
 theme.titlebar_bg_focus  = theme.transparent 
 theme.titlebar_bg_normal = theme.bg_normal
 theme.titlebar_size = dpi(10)
