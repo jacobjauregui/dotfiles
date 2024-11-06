@@ -16,21 +16,21 @@ local t = 't' -- Terminal
 local map = vim.keymap.set
 
 M.changeModes = {
-	map({ i, v, x, c }, '<A-n>', '<ESC>', { desc = 'Exit current mode' }),
-	map(n, 'a', 'i', { desc = 'Change to Insert mode right' }),
-	map(n, 'h', 'a', { desc = 'Change to Insert mode left' }),
-	map(n, 'm', 'o', { desc = 'Change to Insert mode below' }),
-	map(n, 'o', '<S-o>', { desc = 'Change to Insert above' }),
+	map({ c, i }, '<A-n>', '<ESC>', { desc = 'Return to Normal mode' }),
+	map(n, 'a', 'i', { desc = 'Insert before cursor' }),
+	map(n, 'h', 'a', { desc = 'Append after cursor' }),
+	map(n, 'm', 'o', { desc = 'Insert below current line' }),
+	map(n, 'o', '<S-o>', { desc = 'Insert above current line' }),
 	map(n, ';', ':', { desc = 'Change to Command mode' }),
-	map(n, '<leader>v', '<C-v>', { desc = 'Change to V-Block mode' }),
+	map(n, 'vv', '<C-v>', { desc = 'Change to V-Block mode' }),
 }
 
 -- NORMAL MODE
 M.modeNormal = {
-	map(n, ',', '<<', { desc = 'Remove indentation in Normal mode' }),
-	map(n, '.', '>>', { desc = 'Indent line in Normal mode' }),
-	map(n, '<C-c>', '<cmd> $y+ <CR>', { desc = 'Copy whole file' }),
-	map(n, '<C-e>', 'ggVG', { desc = 'Select all' }),
+	map(n, ',', '<<', { desc = 'Unindent lines' }),
+	map(n, '.', '>>', { desc = 'Indent lines' }),
+	--map(n, '<C-c>', '<cmd> $y+ <CR>', { desc = 'Copy whole file' }),
+	--map(n, '<C-e>', 'ggVG', { desc = 'Select all' }),
 	map(n, '<leader>q', '<cmd> wq <CR>', { desc = 'Save and quit' }),
 	map(n, '<leader>s', '<cmd> w <CR>', { desc = 'Save file' }),
 	map(n, '<leader>z', '<cmd> q! <CR>', { desc = 'Quit without save' }),
@@ -77,8 +77,17 @@ M.modeInsert = {
 
 -- V-BLOCK MODE
 M.modeVisualBlock = {
-	map(x, ',', '<', { desc = 'delete indentation within visual mode' }),
-	map(x, '.', '>', { desc = 'indent line within visual mode' }),
+	map(x, ',', '<', { desc = 'Unindent selected lines' }),
+	map(x, '.', '>', { desc = 'Indent selected lines' }),
+	map({ v, x }, 'i', '<Up>', { desc = 'Move up in Visual and V-Bock mode' }),
+	map({ v, x }, 'j', '<Left>', { desc = 'Move left in Visual and V-Bock mode' }),
+	map({ v, x }, 'k', '<Down>', { desc = 'Move down in Visual and V-Bock mode' }),
+	map({ v, x }, 'l', '<Right>', { desc = 'Move right in Visual and V-Bock mode' }),
+	map({ v, x }, '<leader>i', 'gg', { desc = 'Go to the first line' }),
+	map({ v, x }, '<leader>j', '<Home>', { desc = 'Go to start of the current line' }),
+	map({ v, x }, '<leader>l', '<End>', { desc = 'Go to end of the current line' }),
+	map({ v, x }, '<leader>k', 'G', { desc = 'Go to the last line' }),
+	map({ v, x }, 'v', '<Esc>', { desc = 'Return to Normal mode' }),
 }
 
 -- COMMAND MODE
@@ -94,14 +103,14 @@ M.modeTerminal = {
 
 M.navigation = {
 	-- Cursor movements
-	map({ n, v, x }, 'i', '<Up>', { desc = 'Move up' }),
-	map({ n, v, x }, 'j', '<Left>', { desc = 'Move left' }),
-	map({ n, v, x }, 'l', '<Right>', { desc = 'Move right' }),
-	map({ n, v, x }, 'k', '<Down>', { desc = 'Move down' }),
-	map({ n, v, x }, '<leader>i', 'gg', { desc = 'Go to the first line' }),
-	map({ n, v, x }, '<leader>j', '<Home>', { desc = 'Go to start of the current line' }),
-	map({ n, v, x }, '<leader>l', '<End>', { desc = 'Go to end of the current line' }),
-	map({ n, v, x }, '<leader>k', 'G', { desc = 'Go to the last line' }),
+	map(n, 'i', '<Up>', { desc = 'Move up' }),
+	map(n, 'j', '<Left>', { desc = 'Move left' }),
+	map(n, 'l', '<Right>', { desc = 'Move right' }),
+	map(n, 'k', '<Down>', { desc = 'Move down' }),
+	map(n, '<leader>i', 'gg', { desc = 'Go to the first line' }),
+	map(n, '<leader>j', '<Home>', { desc = 'Go to start of the current line' }),
+	map(n, '<leader>l', '<End>', { desc = 'Go to end of the current line' }),
+	map(n, '<leader>k', 'G', { desc = 'Go to the last line' }),
 	-- tabs, buffers and windows
 	map(n, '<leader>b', '<cmd> tabnew <CR>', { desc = 'Open new tab' }),
 	map(n, '<TAB>', '<cmd> tabnext <CR>', { desc = 'Go to next tab' }),

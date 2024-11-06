@@ -7,8 +7,6 @@ local dpi = xresources.apply_dpi
 
 local hackbox = fs.get_configuration_dir() .. 'themes/hackbox/'
 local font_name = 'VictorMono Nerd Font'
---local font_name = 'Liberation'
---local icon_font_name = 'VictorMono NF'
 
 local theme = {
 	wallpaper = hackbox .. 'background.png',
@@ -16,7 +14,7 @@ local theme = {
 	font = font_name .. ' 11',
 	--icon_font = icon_font_name .. ' 18',
 	font_tag_list = font_name .. ' 13',
-	transparent = '#4f334ed6',
+	transparent = '#00000000',
 	color0 = '#191a25',
 	color8 = '#2d3343',
 	color1 = '#9b304b',
@@ -34,33 +32,33 @@ local theme = {
 	color7 = '#bcc5db',
 	color15 = '#e6edfd',
 	bg_normal = '#252628',
-	fg_normal = '#bcc5db',
-	border_normal = '#d94472' ,
-	bg_focus = '#43223c',
-	fg_focus = '#24ceff',
-	border_focus = '#23acd3',
+	fg_normal = '#a6b5b6',
+	border_normal = '#3b3e3e',
+	bg_focus = '#090a0a',
+	fg_focus = '#c3c2c1',
+	border_focus = '#464648',
 	bg_urgent = '#ee738f',
 	fg_urgent = '#9b304b',
---	border_widget = '#3F3F3F',
---	border_marked = '#cceff3',
---	fg_widget = '#AECF96',
---	fg_center_widget = '#88A175',
---	fg_end_widget = '#FF5656',
---	bg_widget = '#494B4F',
+	border_widget = '#3F3F3F',
+	border_marked = '#cceff3',
+	fg_widget = '#AECF96',
+	fg_center_widget = '#88A175',
+	fg_end_widget = '#FF5656',
+	bg_widget = '#494B4F',
 }
 
 theme.bg_systray = theme.bg_normal
 
 --theme.bar_radius = dpi(10)
 --theme.border_radius = dpi(12)
-theme.border_width = dpi(1)
 --theme.client_radius = dpi(10)
+theme.border_width = dpi(1)
 theme.useless_gap = dpi(0) -- default = 0
 theme.tooltip_border_width = dpi(1)
 
 theme.menu_border_width = dpi(1)
-theme.menu_height = dpi(25) -- default = 15
-theme.menu_width = dpi(100)
+theme.menu_height = dpi(28) -- default = 15
+theme.menu_width = dpi(128)
 theme.menu_bg_normal = theme.bg_normal
 theme.menu_bg_focus = theme.bg_focus
 theme.menu_fg_normal = theme.fg_normal
@@ -74,15 +72,15 @@ theme.mouse_finder_color = '#CC9393'
 --theme.mouse_finder_radius
 --theme.mouse_finder_factor
 
-theme.taglist_bg_focus = '#414758'
-theme.taglist_bg_urgent = '#414758'
-theme.taglist_bg_occupied = '#414758'
-theme.taglist_bg_empty = '#414758'
+theme.taglist_bg_focus = theme.transparent
+theme.taglist_bg_urgent = theme.transparent
+theme.taglist_bg_occupied = theme.transparent
+theme.taglist_bg_empty = theme.transparent
 theme.taglist_bg_volatile = theme.transparent
-theme.taglist_fg_focus = theme.fg_focus
+theme.taglist_fg_focus = theme.color14
 theme.taglist_fg_urgent = theme.fg_urgent
-theme.taglist_fg_occupied = theme.fg_normal
-theme.taglist_fg_empty = theme.color0
+theme.taglist_fg_occupied = theme.color13
+theme.taglist_fg_empty = theme.bg_widget
 theme.taglist_fg_volatile = theme.bg_focus
 --theme.taglist_squares_sel   = hackbox .. 'taglist/squarefz.png'
 --theme.taglist_squares_unsel = hackbox .. 'taglist/squarez.png'
@@ -99,8 +97,8 @@ theme.tasklist_fg_empty = theme.fg_normal
 theme.tasklist_bg_volatile = theme.transparent
 theme.tasklist_fg_volatile = theme.color1
 
-theme.titlebar_bg_focus  = theme.bg_normal
-theme.titlebar_bg_normal = theme.transparent
+theme.titlebar_bg_focus  = theme.bg_focus
+theme.titlebar_bg_normal = theme.bg_normal
 
 theme.tooltip_font = font_name .. ' 10'
 theme.tooltip_bg_color = theme.bg_normal

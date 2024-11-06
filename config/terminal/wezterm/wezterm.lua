@@ -16,60 +16,82 @@ local config = {
 	anti_alias_custom_block_glyphs = true,
 	audible_bell = 'Disabled', -- 'Disabled' | 'SystemBeep'
 	automatically_reload_config = true,
-	background = {
-		{
-			source = {
-				File = path .. '/Parallax/Backgrounds/spaceship_bg_1.png',
-			},
-			repeat_x = 'Mirror',
-			hsb = dimmer,
-			attachment = { Parallax = 0.1 },
-		},
-		{
-			source = {
-				File = path .. '/Parallax/Overlays/overlay_1_spines.png',
-			},
-			width = '100%',
-			repeat_x = 'NoRepeat',
-			vertical_align = 'Bottom',
-			repeat_y_size = '200%',
-			hsb = dimmer,
-			attachment = { Parallax = 0.2 },
-		},
-		{
-			source = {
-				File = path .. '/Parallax/Overlays/overlay_2_alienball.png',
-			},
-			width = '100%',
-			repeat_x = 'NoRepeat',
-			vertical_offset = '10%',
-			repeat_y_size = '200%',
-			hsb = dimmer,
-			attachment = { Parallax = 0.3 },
-		},
-		{
-			source = {
-				File = path .. '/Parallax/Overlays/overlay_3_lobster.png',
-			},
-			width = '100%',
-			repeat_x = 'NoRepeat',
-			vertical_offset = '30%',
-			repeat_y_size = '200%',
-			hsb = dimmer,
-			attachment = { Parallax = 0.4 },
-		},
-		{
-			source = {
-				File = path .. '/Parallax/Overlays/overlay_4_spiderlegs.png',
-			},
-			width = '100%',
-			repeat_x = 'NoRepeat',
-			vertical_offset = '50%',
-			repeat_y_size = '150%',
-			hsb = dimmer,
-			attachment = { Parallax = 0.5 },
-		},
-	},
+	--background = {
+	--	{
+	--		source = { 
+	--			Color = '#121211'
+	--		},
+	--		opacity = 1,
+	--		width = '100%',
+	--		height = '100%'
+	--	},
+	--	{
+	--		source = {
+	--			File = path .. '/Parallax/Backgrounds/skulltoon.png',
+	--		},
+	--		repeat_x = 'NoRepeat',
+	--		--repeat_y_size = '200%',
+	--		hsb = dimmer,
+	--		attachment = { Parallax = 0.1 },
+	--	},
+	--	{
+	--		source = {
+	--			File = path .. '/Parallax/Overlays/hunter.png',
+	--		},
+	--		width = '100%',
+	--		repeat_x = 'NoRepeat',
+	--		vertical_offset = '80%',
+	--		vertical_align = 'Bottom',
+	--		repeat_y_size = '100%',
+	--		hsb = dimmer,
+	--		attachment = { Parallax = 0.2 },
+	--	},
+	--	{
+	--		source = {
+	--			File = path .. '/Parallax/Overlays/overlay_1_spines.png',
+	--		},
+	--		width = '100%',
+	--		repeat_x = 'NoRepeat',
+	--		vertical_align = 'Bottom',
+	--		repeat_y_size = '200%',
+	--		hsb = dimmer,
+	--		attachment = { Parallax = 0.2 },
+	--	},
+	--	{
+	--		source = {
+	--			File = path .. '/Parallax/Overlays/overlay_2_alienball.png',
+	--		},
+	--		width = '100%',
+	--		repeat_x = 'NoRepeat',
+	--		vertical_offset = '10%',
+	--		repeat_y_size = '200%',
+	--		hsb = dimmer,
+	--		attachment = { Parallax = 0.3 },
+	--	},
+	--	{
+	--		source = {
+	--			File = path .. '/Parallax/Overlays/overlay_3_lobster.png',
+	--		},
+	--		width = '100%',
+	--		repeat_x = 'NoRepeat',
+	--		vertical_offset = '30%',
+	--		repeat_y_size = '200%',
+	--		hsb = dimmer,
+	--		attachment = { Parallax = 0.4 },
+	--	},
+	--	{
+	--		source = {
+	--			File = path .. '/Parallax/Overlays/hunter.png',
+	--		},
+	--		width = '100%',
+	--		repeat_x = 'NoRepeat',
+	--		vertical_align = 'Bottom',
+	--		vertical_offset = '50%',
+	--		repeat_y_size = '150%',
+	--		hsb = dimmer,
+	--		attachment = { Parallax = 0.5 },
+	--	},
+	--},
 	bold_brightens_ansi_colors = true, -- 'No' | 'BrightAndBold' | 'BrightOnly'
 	bypass_mouse_reporting_modifiers= 'ALT', -- 'ALT' | 'CTRL' | 'SHIFT'
 	canonicalize_pasted_newlines= 'None',
@@ -166,16 +188,37 @@ local config = {
 	--min_scroll_bar_height = '1%',
 	use_resize_increments = true,
 	warn_about_missing_glyphs = false,
-	window_decorations = 'INTEGRATED_BUTTONS', -- 'INTEGRATED_BUTTONS' | 'TITLE' | 'RESIZE'
+	window_background_gradient = {
+		colors = {
+			'#020d1f',
+			'#010001',
+			'#1f020d',
+		},
+		-- Look for more presets in:
+		-- https://wezfurlong.org/wezterm/config/lua/config/window_background_gradient.html#radial-gradient
+		--preset = 'CubeHelixDefault',
+		orientation = {
+			Linear = {
+				angle = -45.0,
+			},
+		},
+		--interpolation = 'Linear', -- 'Linear' | 'Basis' | 'CatmullRom'
+		--blend = 'Rgb', -- 'Rgb' | 'LinearRgb' | 'Hsv' | 'Oklab'
+		--noise = 64,
+		--segemet_size = 11,
+		--segment_smoothness = 0.0,
+	},
+	window_background_opacity = 1.0,
+	window_decorations = 'TITLE | RESIZE', -- 'INTEGRATED_BUTTONS' | 'TITLE' | 'RESIZE'
 	window_frame = {
 		border_left_width = 0,
 		border_right_width = 0,
 		border_bottom_height = 0,
 		border_top_height = 0,
-		border_left_color = '#00ceff',
-		border_right_color = '#00ceff',
-		border_bottom_color = '#00ceff',
-		border_top_color = '#00ceff'
+		border_left_color = '#242424',
+		border_right_color = '#242424',
+		border_bottom_color = '#242424',
+		border_top_color = '#242424'
 	},
 	window_padding = {
 		left = 0,
