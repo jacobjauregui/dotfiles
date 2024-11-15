@@ -1,28 +1,15 @@
-# Custom Zsh/Oh-My-Zsh configurations.
-
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-if [[ -f "/usr/bin/wezterm" ]]; then
-	export TERMINAL="wezterm"
-elif [[ -f "/usr/bin/kitty" ]]; then
-	export TERMINAL="kitty"
-else
-	sudo pacman -S wezterm
-	export TERMINAL="wezterm"
-fi
-
 # _______________________ [ ENVIRONMENT VARIABLES ] ___________________________
 #export ARCHFLAGS="-arch x86_64"
-export EDITOR="nvim"
 export LANG=en_US.UTF-8
 export MANPATH="/usr/local/man:$MANPATH"
 export NVM_DIR="$HOME/.nvm"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.dotnet/tools:$PATH"
+#export PATH="$HOME/.local/bin:$PATH"
+#export PATH="$HOME/.dotnet/tools:$PATH"
 export SUDO_PROMPT="󰌾 Password: "
-export XDG_CONFIG_HOME="$HOME/.config"
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$ZSH/custom"
 
@@ -72,35 +59,72 @@ source $ZSH_CUSTOM/plugins
 # _________________________ [ FUNCTIONS ] _____________________________________
 # --- Shortcuts for pacman.
 pakman () {
-	case $1 in
-		-s)
-			echo "Looking for $2...\n"
-			pacman -Ss $2
-			;;
-		-u)
-			echo "Upgrading...\n"
-			sudo pacman -Syu
-			;;
-		-i)
-			echo "Installing $2...\n"
-			sudo pacman -S $2
-			;;
-		-r)
-			echo "Removing $2...\n"
-			sudo pacman -Rsun $2
-			;;
-		-d)
-			echo "Verifying if $2 is already installed...\n"
-			pacman -Qs $2
-			;;
-		-l)
-			echo "Installed packages:\n"
-			pacman -Qe
-			;;
-		*)
-			echo "Unknown option \"$1\""
-			;;
-	esac
+	option=$1
+	packages=('')
+	args=($@)
+	for (( i=0; $i <= ${#args[*]}; i++ )); do
+		if [ $i -gt 1 ]; then
+			packages+=(${args[i]})
+		fi
+	done
+
+	if [ "$option" != '' ]; then
+		if [ "$packages" != '' ]; then
+			case $option in
+				-s || --search)
+					echo "\nLooking for $2...\n"
+					pacman -Ss $2
+					;;
+				-i || --install)
+					for pack in $packages; do
+						echo "\nInstalling $pack...\n"
+						sudo pacman -S $pack
+					done
+					;;
+				-r || --remove)
+					for pack in $packages; do
+						echo "\nRemoving $pack...\n"
+						sudo pacman -Rsun $pack
+					done
+					;;
+				-d || --downloaded)
+					for pack in $packages; do
+						echo "\nVerifying if $pack is already installed...\n"
+						pacman -Qs $pack
+					done
+					;;
+				-l || --local)
+					for pack in $packages; do
+						echo "\nVerifying if $pack is locally installed...\n"
+						pacman -Qe $pack
+					done
+					;;
+				*)
+					echo "Error: Unknown option \"$option\""
+					;;
+			esac
+		else
+			case $option in
+				-u || --upgrade)
+					echo "\nUpgrading Pacman...\n"
+					sudo pacman -Syu
+					;;
+				-d || --downloaded)
+					echo "\nAlready installed packages...\n"
+					pacman -Qs
+					;;
+				-l || --local)
+					echo "\nLocally installed packages:\n"
+					pacman -Qe
+					;;
+				*)
+					echo "Error: Unknown option \"$option\""
+					;;
+			esac
+		fi
+	else
+		echo "Error: No option specified!"
+	fi
 }
 
 aur () {
@@ -123,18 +147,24 @@ aur () {
 # --- Remove files securely
 xred () {
 	sync
-	if [[ ! -w $1 || ( -d $1 && ! -w $1 ) ]]; then
-		echo "Permission denied!"
-		exit 1
+	if [[ -d $1 && ! -w $1 ]]; then
+		find $1 -type f | xargs sudo scrub -Sfp usarmy > /dev/null 2>&1
+		find $1 -type f | xargs sudo shred -fn 32 -zux > /dev/null 2>&1
+		sudo rm -drf $1
+		echo "Protected folder $1 has been removed!"
+	elif [[ ! -w $1 ]]; then
+		sudo scrub -fp usarmy $1 > /dev/null 2>&1
+		sudo shred -fn 32 -zux $1 > /dev/null 2>&1
+		echo "Protected file $1 has been removed!"
 	elif [[ -d $1 ]]; then
 		find $1 -type f | xargs scrub -Sfp usarmy > /dev/null 2>&1
-		find $1 -type f | xargs shred -fn 32 -zux
+		find $1 -type f | xargs shred -fn 32 -zux > /dev/null 2>&1
 		rm -drf $1
-		echo "All clean!"
+		echo "Folder $1 removed!"
 	else
 		scrub -fp usarmy $1 > /dev/null 2>&1
-		shred -fn 32 -zux $1
-		echo "All clean!"
+		shred -fn 32 -zux $1 > /dev/null 2>&1
+		echo "File $1 removed!"
 	fi
 }
 
@@ -154,7 +184,26 @@ img () {
 	elif [ $TERMINAL == "kitty" ]; then
 		kitty +kitten icat $1
 	else
-		echo "Terminal $TERM no compatible"
+		echo "Terminal \"$TERMINAL\" is no compatible to display images!"
+	fi
+}
+
+die () {
+	if [[ -f "$HOME/.zsh_history" || -f "$HOME/.bash_history" ]]; then
+		if [[ -f "$HOME/.zsh_history" && -f "$HOME/.bash_history" ]]; then
+			xred "$HOME/.zsh_history";
+			xred "$HOME/.bash_history";
+			exit 0
+		elif [[ -f "$HOME/.zsh_history" && ! -f "$HOME/.bash_history" ]]; then
+			xred "$HOME/.zsh_history";
+			exit 0
+		elif [[ -f "$HOME/.bash_history" && ! -f "$HOME/.zsh_history" ]]; then
+			xred "$HOME/.bash_history";
+			exit 0
+		fi
+	else
+		echo "No history files found!"
+		exit 0
 	fi
 }
 
@@ -231,7 +280,9 @@ alias gitcl="git clone"
 alias gh-login="gh auth login"
 
 # __________________________ [ Load modules ] _________________________________
-
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+[[ -f "$HOME/Pictures/hf.png" && -f "/usr/bin/wezterm" ]] && print "\n\t\t\t\t$(wezterm imgcat $HOME/Pictures/hf.png)"
