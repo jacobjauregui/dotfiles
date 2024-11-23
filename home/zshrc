@@ -208,7 +208,6 @@ die () {
 }
 
 # _________________________ [ ALIASSES ] ______________________________________
-
 # --- Common commands.
 alias ..="cd .."
 alias addr="ip addr"
@@ -285,4 +284,20 @@ alias gh-login="gh auth login"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-[[ -f "$HOME/Pictures/hf.png" && -f "/usr/bin/wezterm" ]] && print "\n\t\t\t\t$(wezterm imgcat $HOME/Pictures/hf.png)"
+display_image () {
+	x=$(tput cols)
+	width=256
+	height=27
+	if [[ $(( x % 2 )) -gt 0 ]]; then
+		(( x-=1 ))
+	fi
+	center=$(( (width / 2) - (x / 2) ))
+
+	for (( left=0; left < center; left++ )); do
+		printf " "
+	done
+
+	wezterm imgcat --width $width'px' --height $height'px' $1
+}
+
+display_image "$HOME/Pictures/hf.png"
