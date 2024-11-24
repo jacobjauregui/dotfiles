@@ -350,11 +350,11 @@
 		fi
 
 		# Styling for different parts of Git status.
-		local       meta='#c3c1c2' # white foreground %7F
-		local      clean='#010010' # black foreground %0F
-		local   modified='#010010' # black foreground %0F
-		local  untracked='#010010' # black foreground %0F
-		local conflicted='#bb3135' # red foreground %1F
+		local       meta='%F{#c3c1c2}' # white foreground %7F
+		local      clean='%F{#010010}' # black foreground %0F
+		local   modified='%F{#010010}' # black foreground %0F
+		local  untracked='%F{#010010}' # black foreground %0F
+		local conflicted='%F{#bb3135}' # red foreground %1F
 
 		local res
 
@@ -384,29 +384,29 @@
 		fi
 
 		# ⇣42 if behind the remote.
-		(( VCS_STATUS_COMMITS_BEHIND )) && res+=" ${clean}⇣${VCS_STATUS_COMMITS_BEHIND}"
+		(( VCS_STATUS_COMMITS_BEHIND )) && res+=" ${clean}⇣${VCS_STATUS_COMMITS_BEHIND}%f"
 		# ⇡42 if ahead of the remote; no leading space if also behind the remote: ⇣42⇡42.
 		(( VCS_STATUS_COMMITS_AHEAD && !VCS_STATUS_COMMITS_BEHIND )) && res+=" "
-		(( VCS_STATUS_COMMITS_AHEAD  )) && res+="${clean}⇡${VCS_STATUS_COMMITS_AHEAD}"
+		(( VCS_STATUS_COMMITS_AHEAD  )) && res+="${clean}⇡${VCS_STATUS_COMMITS_AHEAD}%f"
 		# ⇠42 if behind the push remote.
-		(( VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" ${clean}⇠${VCS_STATUS_PUSH_COMMITS_BEHIND}"
+		(( VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" ${clean}⇠${VCS_STATUS_PUSH_COMMITS_BEHIND}%f"
 		(( VCS_STATUS_PUSH_COMMITS_AHEAD && !VCS_STATUS_PUSH_COMMITS_BEHIND )) && res+=" "
 		# ⇢42 if ahead of the push remote; no leading space if also behind: ⇠42⇢42.
-		(( VCS_STATUS_PUSH_COMMITS_AHEAD  )) && res+="${clean}⇢${VCS_STATUS_PUSH_COMMITS_AHEAD}"
-		# *42 if have stashes.
-		(( VCS_STATUS_STASHES        )) && res+=" ${clean}*${VCS_STATUS_STASHES}"
+		(( VCS_STATUS_PUSH_COMMITS_AHEAD  )) && res+="${clean}⇢${VCS_STATUS_PUSH_COMMITS_AHEAD}%f"
+		# *42 or 󱨧 42 if have stashes.
+		(( VCS_STATUS_STASHES        )) && res+=" ${clean}󱨧 ${VCS_STATUS_STASHES}%f"
 		# 'merge' if the repo is in an unusual state.
-		[[ -n $VCS_STATUS_ACTION     ]] && res+=" ${conflicted}${VCS_STATUS_ACTION}"
-		# ~42 if have merge conflicts.
-		(( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}~${VCS_STATUS_NUM_CONFLICTED}"
+		[[ -n $VCS_STATUS_ACTION     ]] && res+=" ${conflicted}${VCS_STATUS_ACTION}%f"
+		# ~42 or  42 if have merge conflicts.
+		(( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}~${VCS_STATUS_NUM_CONFLICTED}%f"
 		# +42 if have staged changes.
-		(( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}+${VCS_STATUS_NUM_STAGED}"
+		(( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}󰐙 ${VCS_STATUS_NUM_STAGED}%f"
 		# !42 if have unstaged changes.
-		(( VCS_STATUS_NUM_UNSTAGED   )) && res+=" ${modified}!${VCS_STATUS_NUM_UNSTAGED}"
+		(( VCS_STATUS_NUM_UNSTAGED   )) && res+=" ${modified} ${VCS_STATUS_NUM_UNSTAGED}%f"
 		# ?42 if have untracked files. It's really a question mark, your font isn't broken.
 		# See POWERLEVEL9K_VCS_UNTRACKED_ICON above if you want to use a different icon.
 		# Remove the next line if you don't want to see untracked files at all.
-		(( VCS_STATUS_NUM_UNTRACKED  )) && res+=" ${untracked}${(g::)POWERLEVEL9K_VCS_UNTRACKED_ICON}${VCS_STATUS_NUM_UNTRACKED}"
+		(( VCS_STATUS_NUM_UNTRACKED  )) && res+=" ${untracked}${(g::)POWERLEVEL9K_VCS_UNTRACKED_ICON}${VCS_STATUS_NUM_UNTRACKED}%f"
 		# "─" if the number of unstaged files is unknown. This can happen due to
 		# POWERLEVEL9K_VCS_MAX_INDEX_SIZE_DIRTY (see below) being set to a non-negative number lower
 		# than the number of files in the Git index, or due to bash.showDirtyState being set to false
