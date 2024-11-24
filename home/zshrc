@@ -1,15 +1,10 @@
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# _______________________ [ ENVIRONMENT VARIABLES ] ___________________________
-#export ARCHFLAGS="-arch x86_64"
-export LANG=en_US.UTF-8
-export MANPATH="/usr/local/man:$MANPATH"
-export NVM_DIR="$HOME/.nvm"
-#export PATH="$HOME/.local/bin:$PATH"
-#export PATH="$HOME/.dotnet/tools:$PATH"
-export SUDO_PROMPT="󰌾 Password: "
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$ZSH/custom"
 
@@ -57,7 +52,7 @@ source $ZSH/oh-my-zsh.sh
 source $ZSH_CUSTOM/plugins
 
 # _________________________ [ FUNCTIONS ] _____________________________________
-# --- Shortcuts for pacman.
+# Shortcuts for pacman.
 pakman () {
 	option=$1
 	packages=('')
@@ -127,24 +122,7 @@ pakman () {
 	fi
 }
 
-aur () {
-	case $1 in
-		-s)
-			echo "Looking for $2...\n"
-			if [[ -z $(paru -Ss $2) ]]; then
-				echo "Package '$2' not found!"
-			else
-				paru -Ss $2
-			fi
-			;;
-		-i)
-			echo "Installing $2...\n"
-			paru -S $2
-			;;
-	esac
-}
-
-# --- Remove files securely
+# Remove files securely
 xred () {
 	sync
 	if [[ -d $1 && ! -w $1 ]]; then
@@ -168,6 +146,7 @@ xred () {
 	fi
 }
 
+# Open Neovim and edit or create a new file.
 nv () {
 	if [[ -w $1 ]]; then
 		nvim $1
@@ -178,9 +157,36 @@ nv () {
 	fi
 }
 
+# Display images on terminal.
 img () {
+	args=($@)
 	if [[ $TERMINAL == "wezterm" ]]; then
-		wezterm imgcat $1
+		case $1 in
+			-h || --help)
+				echo "Usage: img [options] <image>"
+				echo "Options:"
+				echo "  -w, --width <value>  Set the width of the image."
+				echo "  -h, --height <value> Set the height of the image."
+				echo "  -p, --position <x,y>    Set the image position on x columns and y lines."
+				echo "  -s, --size <w,h>   Set the size of the image."
+				echo "Examples:\n$ img ~/Pictures/image.jpeg\n$ img -w 50 -h 20 ~/Pictures/image.png\n$ img -w '256px' -h '28px' ~/Pictures/image.jpg\n$ img -w '25%' -h '5%' ~/Pictures/image.jpg"
+				;;
+			-W || --width)
+				wezterm imgcat --width $2 $3
+				;;
+			-H || --height)
+				wezterm imgcat --height $2 $3
+				;;
+			-P || --position)
+				wezterm imgcat --position $2,$3 $4
+				;;
+			-S || --size)
+				wezterm imgcat --width $2 --height $3 $4
+				;;
+			*)
+				wezterm imgcat $1
+				;;
+		esac
 	elif [ $TERMINAL == "kitty" ]; then
 		kitty +kitten icat $1
 	else
@@ -188,6 +194,7 @@ img () {
 	fi
 }
 
+# Remove history files before exiting.
 die () {
 	if [[ -f "$HOME/.zsh_history" || -f "$HOME/.bash_history" ]]; then
 		if [[ -f "$HOME/.zsh_history" && -f "$HOME/.bash_history" ]]; then
@@ -205,6 +212,23 @@ die () {
 		echo "No history files found!"
 		exit 0
 	fi
+}
+
+greeter () {
+	#x=$COLUMNS
+	x=150
+	width=256
+	height=27
+	if [[ $(( x % 2 )) -gt 0 ]]; then
+		(( x-=1 ))
+	fi
+	center=$(( (width / 2) - (x / 2) ))
+
+	for (( left=0; left < center; left++ )); do
+		printf " "
+	done
+
+	img -S $width'px' $height'px' $1
 }
 
 # _________________________ [ ALIASSES ] ______________________________________
@@ -278,26 +302,5 @@ alias gitcl="git clone"
 # --- Github (Using github CLI).
 alias gh-login="gh auth login"
 
-# __________________________ [ Load modules ] _________________________________
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-display_image () {
-	x=$(tput cols)
-	width=256
-	height=27
-	if [[ $(( x % 2 )) -gt 0 ]]; then
-		(( x-=1 ))
-	fi
-	center=$(( (width / 2) - (x / 2) ))
-
-	for (( left=0; left < center; left++ )); do
-		printf " "
-	done
-
-	wezterm imgcat --width $width'px' --height $height'px' $1
-}
-
-display_image "$HOME/Pictures/hf.png"
+greeter "$HOME/Pictures/hf.png"
