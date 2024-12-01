@@ -42,9 +42,9 @@ _M.special_keys = {
 }
 
 _M.config_home = os.getenv('XDG_CONFIG_HOME')
-_M.browser = os.getenv('BROWSER') or 'firefox'
-_M.file_manager = os.getenv('FILE_MANAGER') or 'thunar'
-_M.editor = os.getenv('EDITOR') or 'vim'
-_M.terminal = os.getenv('TERMINAL') or 'xterm'
+_M.browser = os.getenv('BROWSER')
+_M.file_manager = os.getenv('FILE_MANAGER')
+_M.editor = os.getenv('EDITOR')
+_M.terminal = os.getenv('TERMINAL')
 
 return _M

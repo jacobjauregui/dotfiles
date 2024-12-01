@@ -30,4 +30,4 @@ else
 	export EDITOR=nano;
 fi
 
-export FILE_MNGR=thunar;
+export FILE_MANAGER=thunar;

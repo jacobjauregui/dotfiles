@@ -56,10 +56,10 @@ f12 = M.vars.special_keys.f12
 	-- }
 -- })
 local icons = {
-	browser_icon = assets .. 'firefox.png',
-	editor_icon = assets .. 'nvim.png',
-	file_manager_icon = assets .. 'thunar.png',
-	terminal_icon = assets .. 'wezterm.png',
+	browser_icon = assets .. M.vars.browser .. '.png',
+	editor_icon = assets .. M.vars.editor .. '.png',
+	file_manager_icon = assets .. M.vars.file_manager .. '.png',
+	terminal_icon = assets .. M.vars.terminal .. '.png',
 }
 
 menubar.utils.terminal = M.vars.terminal
@@ -179,10 +179,10 @@ awful.screen.connect_for_each_screen(function(s)
 	s.mypromptbox = awful.widget.prompt()
 	s.mylayoutbox = awful.widget.layoutbox(s)
 	s.mylayoutbox:buttons(gears.table.join(
-		awful.button({ }, 1, function () awful.layout.inc( 1) end),
-		awful.button({ }, 3, function () awful.layout.inc(-1) end),
-		awful.button({ }, 4, function () awful.layout.inc( 1) end),
-		awful.button({ }, 5, function () awful.layout.inc(-1) end)
+		awful.button({ }, 1, function() awful.layout.inc( 1) end),
+		awful.button({ }, 3, function() awful.layout.inc(-1) end),
+		awful.button({ }, 4, function() awful.layout.inc( 1) end),
+		awful.button({ }, 5, function() awful.layout.inc(-1) end)
 		)
 	)
 	s.mytasklist = awful.widget.tasklist {
@@ -292,10 +292,10 @@ root.buttons(gears.table.join(
 -- }}}
 
 globalkeys = gears.table.join(
-	awful.key({shift}, tab, awful.tag.viewprev, 
+	awful.key({super}, 'Left', awful.tag.viewprev, 
 		{description = 'view previous', group = 'tag'}
 	),
-	awful.key({super, shift}, tab, awful.tag.viewnext, 
+	awful.key({super}, 'Right', awful.tag.viewnext, 
 		{description = 'view next', group = 'tag'}
 	),
 	awful.key({super}, backspace, awful.tag.history.restore, 
@@ -401,32 +401,32 @@ globalkeys = gears.table.join(
 			}
 		end, {description = 'Lua execute prompt', group = 'awesome'}
 	),
-	awful.key({super, ctrl}, 'i',
+	awful.key({super}, 'Up',
 		function()
 			awful.tag.incncol(1, nil, true)
 		end, {description = 'increase the number of columns', group = 'layout'}
 	),
-	awful.key({super, ctrl}, 'k',
+	awful.key({super}, 'Down',
 		function()
 			awful.tag.incncol(-1, nil, true)
 		end, {description = 'decrease the number of columns', group = 'layout'}
 	),
-	awful.key({super, shift}, 'l',
+	awful.key({super, shift}, 'Up',
 		function()
 			awful.tag.incmwfact(0.05)
 		end, {description = 'increase master width factor', group = 'layout'}
 	),
-	awful.key({super, shift}, 'j',
+	awful.key({super, shift}, 'Down',
 		function()
 			awful.tag.incmwfact(-0.05)
 		end, {description = 'decrease master width factor', group = 'layout'}
 	),
-	awful.key({super, shift}, 'i',
+	awful.key({super, shift}, '.',
 		function()
 			awful.tag.incnmaster(1, nil, true)
 		end, {description = 'increase the number of master clients', group = 'layout'}
 	),
-	awful.key({ super, shift }, 'k',
+	awful.key({ super, shift }, ',',
 		function()
 			awful.tag.incnmaster(-1, nil, true)
 		end, {description = 'decrease the number of master clients', group = 'layout'}
@@ -441,12 +441,12 @@ globalkeys = gears.table.join(
 			awful.layout.inc(-1)
 		end, {description = 'select previous', group = 'layout'}
 	),
-	awful.key({super, ctrl}, 'g',
+	awful.key({super}, ']',
 		function()
 			awful.screen.focus_relative(1)
 		end, {description = 'focus the next screen', group = 'screen'}
 	),
-	awful.key({super, ctrl}, 'h',
+	awful.key({super}, '[',
 		function()
 			awful.screen.focus_relative(-1)
 		end, {description = 'focus the previous screen', group = 'screen'}
@@ -482,7 +482,7 @@ clientkeys = gears.table.join(
 			c:move_to_screen() 
 		end, { description = 'move to screen', group = 'client'}
 	),
-	awful.key({ super, }, 't', 
+	awful.key({ super, ctrl }, 't', 
 		function(c) 
 			c.ontop = not c.ontop 
 		end, { description = 'toggle keep on top', group = 'client'}
