@@ -1,15 +1,33 @@
-# Path and configuration directories.
-#
+#____________________[ Path and Configuration Directories ]____________________
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export MANPATH="/usr/local/man:$MANPATH"
+export NVM_DIR="$HOME/.nvm"
 export XDG_CONFIG_HOME="$HOME/.config/"
 export XDG_DATA_HOME="$HOME/.local/share/"
 export XDG_CACHE_HOME="$HOME/.cache/"
 
-# Preferred applications.
-#
-export TERMINAL=wezterm;
-export BROWSER=firefox;
-export EDITOR=nvim;
-export VISUAL=nvim;
+export SUDO_PROMPT="󰌾 Password: "
+
+#______________________________[ Default Apps ]________________________________
+if [[ -f /usr/bin/wezterm ]]; then 
+	export TERMINAL=wezterm;
+elif [[ -f /usr/bin/kitty ]]; then
+	export TERMINAL=kitty;
+else
+	export TERMINAL=xterm;
+fi
+
+if [[ -f /usr/bin/brave ]]; then 
+	export BROWSER=brave;
+else
+	export BROWSER=firefox;
+fi
+
+if [[ -f /usr/bin/nvim ]]; then
+	export EDITOR=nvim;
+else
+	export EDITOR=nano;
+fi
+
 export FILE_MNGR=thunar;

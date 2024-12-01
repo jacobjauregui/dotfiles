@@ -262,6 +262,7 @@ alias src="source ~/.zshrc"
 alias upfont="fc-cache -fv"
 alias upgrub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias updb="sudo updatedb"
+alias vboxsetup="sudo rcvboxadd setup"
 
 # --- Git (bare repo dotfiles).
 alias gitdot="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
