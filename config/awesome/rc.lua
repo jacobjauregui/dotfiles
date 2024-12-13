@@ -11,7 +11,7 @@ local dpi = beautiful.xresources.apply_dpi
 --local keys = require('settings.keys')
 
 M = {}
-M.vars = require('main.user_variables')
+M.vars = require('main.env')
 
 config_home = M.vars.config_home
 config_awesome = config_home .. 'awesome/'

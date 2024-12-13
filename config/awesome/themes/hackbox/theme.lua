@@ -11,7 +11,7 @@ local font_name = 'ShureTechMono Nerd Font'
 
 local theme = {
 	wallpaper = hackbox .. 'background.png',
-	awesome_icon = fs.get_configuration_dir() .. 'themes/hackteam.svg',
+	awesome_icon = fs.get_configuration_dir() .. 'themes/menu_icon.svg',
 	font = font_name .. ' 13',
 	--icon_font = icon_font_name .. ' 18',
 	font_tag_list = font_name .. ' 13',

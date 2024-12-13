@@ -303,5 +303,19 @@ alias gitcl="git clone"
 # --- Github (Using github CLI).
 alias gh-login="gh auth login"
 
+# --- System services.
+alias daemon-reload="sudo systemctl daemon-reload"
+alias svc-enable="sudo systemctl enable"
+alias svc-status="systemctl status"
+alias svc-start="sudo systemctl start"
+alias svc-stop="sudo systemctl stop"
+alias svc-restart="sudo systemctl restart"
+
+# --- User services.
+alias ustart="systemctl --user start"
+alias urestart="systemctl --user restart"
+alias ustop="systemctl --user stop"
+alias udemon="systemctl --user enable"
+
 
 greeter "$HOME/Pictures/hf.png"
