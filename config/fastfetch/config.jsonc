@@ -2,20 +2,18 @@
 	"$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
 	"logo": {
 		"type": "iterm",
-		"source": "~/Pictures/Archlinux-tango.png",
+		"source": "~/.config/fastfetch/os_logo.png",
 		"padding": { 
-			"top": 1,
-			"right": 2,
-			"left": 2,
-			"bottom": 1
-		},
-		"width": 44,
-		"height": 15
+			"top": 2,
+			"right": 1,
+			"left": 1,
+			"bottom": 0
+		}
 	},
 	"display": {
 		"separator": " ",
 		"constants": [
-			"─────────────────",
+			"──────────────────",
 			"│",
 			"┌",
 			"├",
@@ -33,25 +31,27 @@
 		{
 			"type": "cpu",
 			"key": "{$2} {#37}  {#90}{icon}{#}  {#37}CPU:{#} ",
-			"format": "{1} ({5}) @ {7}GHz {8} {$2}"
+			"format": "        {1} @ {6}{$2}"
 		},
 		{
 			"type": "memory",
 			"key": "{$2} {#37}  {#32}{icon}{#}  {#37}RAM:{#} ",
-			"format": "{used} / {total} ({3}) {4}   {$2}"
+			"format": "        {used} / {total} ({3}) {4}           {$2}"
 		},
 		{
 			"type": "disk",
-			"key": "{$2} {#37}  {#90}{icon}  {#37}Disk:{#}",
-			"format": "{1} / {2} ({3})                {$2}"
+			"key": "{$2} {#37}  {icon}{#}  {#37}Disk:{#}",
+			"format": "        {1} / {2} ({3})          {$2}"
 		},
 		{
 			"type": "gpu",
-			"key": "{$2} {#37}  {#90}{icon}{#}  {#37}GPU:{#}"
+			"key": "{$2} {#37}  {#32}{icon}{#}  {#37}GPU:{#}",
+			"format": "         {1} {2}               {$2}"
 		},
 		{
 			"type": "display",
-			"key": "{$2} {#37}  {#30}{icon}{#}  {#37}Display:{#} "
+			"key": "{$2} {#37}  {#30}{icon}{#}  {#37}Display:{#}",
+			"format": "     {1}x{2}, {3}Hz                       {$2}"
 		},
 		{
 			"type": "custom",
@@ -64,35 +64,27 @@
 		{
 			"type": "os",
 			"key": "{$2} {#37}  {#34}󰣇 {#} {#37}OS:{#}",
-			"keyColor": "blue"
+			"keyColor": "blue",
+			"format": "          {3} {12}                    {$2}"
 		},
 		{
 			"type": "kernel",
-			"key": "{$2} {#37}  {#90}{icon}{#}  {#37}Kernel:{#}"
-		},
-		{
-			"type": "shell",
-			"key": "{$2} {#37}  {#37}{#}  {#37}Shell:{#}"
-		},
-		{
-			"type": "terminal",
-			"key": "{$2} {#37}  {#37}{#}  {#37}Terminal:{#}"
+			"key": "{$2} {#37}  {#90}{icon}{#}  {#37}Kernel:{#}",
+			"format": "      {1} {2}                 {$2}"
 		},
 		{
 			"type": "wm", 
-			"key": "{$2} {#37}  {#32}{icon}{#}  {#37}Window Manager:{#}"
+			"key": "{$2} {#37}  {#32}{icon}{#}  {#37}WM:{#}",
+			"format": "          {2} {3}                          {$2}"
 		},
 		{
 			"type": "packages",
-			"key": "{$2} {#37}  {#33}󰮯{#}  {#37}Packages:{#}"
-		},
-		{
-			"type": "localip",
-			"key": "{$2} {#37}  {#37}{icon}{#}  {#37}Local IP:{#}"
+			"key": "{$2} {#37}  {#33}󰮯{#}  {#37}Pacman:{#}",
+			"format": "      {2} Packages                         {$2}"
 		},
 		{
 			"type": "custom",
-			"format": "{$2} {#37}  {#37}{#}  {#37}Colors:{#} {#30}  {#31}  {#32}  {#33}  {#34}  {#35}  {#36}  {#37} "
+			"format": "{$2} {#37}  {#37}{#}  {#37}Colors:{#}       {#30}  {#31}  {#32}  {#33}  {#34}  {#35}  {#36}  {#37} {#}              {$2}"
 		},
 		{
 			"type": "custom",
