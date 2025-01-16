@@ -1,3 +1,12 @@
+# Author: Jacob Jauregui.
+# Date: Wednesday, january 15, 2025.
+# Version: 1.0
+# Language: bash.
+# License: MIT License.
+# Github: https:github.com/jacobjauregui
+# Description: This file is part of my dotfiles. It contains my custom 
+# configuration for ZSH shell.
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -196,6 +205,8 @@ img () {
 
 # Remove history files before exiting.
 die () {
+	echo "Clipboard is empty!" | xclip -i -selection clipboard;
+	echo "Clipboard is empty!" | xclip -i -selection primary;
 	if [[ -f "$HOME/.zsh_history" || -f "$HOME/.bash_history" ]]; then
 		if [[ -f "$HOME/.zsh_history" && -f "$HOME/.bash_history" ]]; then
 			xred "$HOME/.zsh_history";
@@ -215,19 +226,17 @@ die () {
 }
 
 greeter () {
-	#x=$COLUMNS
-	x=150
+	x=136
 	width=256
 	height=27
 	if [[ $(( x % 2 )) -gt 0 ]]; then
 		(( x-=1 ))
 	fi
+	printf "\n"
 	center=$(( (width / 2) - (x / 2) ))
-
 	for (( left=0; left < center; left++ )); do
-		printf " "
+		printf "   "
 	done
-
 	img -S $width'px' $height'px' $1
 }
 
@@ -305,11 +314,12 @@ alias gh-login="gh auth login"
 
 # --- System services.
 alias daemon-reload="sudo systemctl daemon-reload"
-alias svc-enable="sudo systemctl enable"
-alias svc-status="systemctl status"
-alias svc-start="sudo systemctl start"
-alias svc-stop="sudo systemctl stop"
-alias svc-restart="sudo systemctl restart"
+alias sys-enable="sudo systemctl enable"
+alias sys-status="systemctl status"
+alias sys-start="sudo systemctl start"
+alias sys-stop="sudo systemctl stop"
+alias sys-restart="sudo systemctl restart"
+alias sur="suralert.sh"
 
 # --- User services.
 alias ustart="systemctl --user start"

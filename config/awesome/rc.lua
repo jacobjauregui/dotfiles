@@ -7,7 +7,14 @@ local beautiful = require('beautiful')
 local menubar = require('menubar')
 local wibox = require('wibox')
 local hotkeys_popup = require('awful.hotkeys_popup')
+local naughty = require('naughty')
 local dpi = beautiful.xresources.apply_dpi
+
+local geometry = awful.screen.focused().geometry
+local s_w = dpi(geometry.width)
+local s_h = dpi(geometry.height)
+local s_x = dpi(geometry.x)
+local s_y = dpi(geometry.y)
 --local keys = require('settings.keys')
 
 M = {}
@@ -66,6 +73,7 @@ menubar.utils.terminal = M.vars.terminal
 
 -- {{{ Layouts
 awful.layout.layouts = {
+	awful.layout.suit.floating,
 	awful.layout.suit.tile,
 	awful.layout.suit.tile.left,
 	awful.layout.suit.tile.bottom,
@@ -78,7 +86,6 @@ awful.layout.layouts = {
 	awful.layout.suit.max.fullscreen,
 	awful.layout.suit.magnifier,
 	awful.layout.suit.corner.nw,
-	awful.layout.suit.floating,
 	-- awful.layout.suit.corner.ne,
 	-- awful.layout.suit.corner.sw,
 	-- awful.layout.suit.corner.se,
@@ -111,11 +118,14 @@ mylauncher = awful.widget.launcher{
 }
 
 menubar.geometry = {
-	x = 1366 / 2 - 400,
-	y = 32,
 	width = dpi(800),
-	height = dpi(32),
+	height = dpi(36),
 }
+
+local menubar_x_position = dpi(s_w / 2)
+local menubar_offset = dpi(menubar.geometry.width / 2)
+menubar.geometry.x = dpi(menubar_x_position - menubar_offset)
+menubar.geometry.y = dpi(36)
 
 mykeyboardlayout = awful.widget.keyboardlayout()
 mytextclock = wibox.widget.textclock()
@@ -134,8 +144,12 @@ local taglist_buttons = gears.table.join(
 			client.focus:toggle_tag(t)
 		end
 	end),
-	awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-	awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+	awful.button({ }, 4, function(t) 
+		awful.tag.viewnext(t.screen)
+	end),
+	awful.button({ }, 5, function(t)
+		awful.tag.viewprev(t.screen)
+	end)
 )
 -- }}}
 
@@ -167,14 +181,17 @@ local function set_wallpaper(s)
 			wallpaper = wallpaper(s)
 		end
 		gears.wallpaper.maximized(wallpaper, s, true)
+		geometry = s.geometry
+		s_w = geometry.width
+		s_h = geometry.height
 	end
 end
 
 screen.connect_signal('property::geometry', set_wallpaper)
-
 -- {{{ Wibar
 awful.screen.connect_for_each_screen(function(s)
 	set_wallpaper(s)
+
 	awful.tag({ '', '', '', '', '', '' }, s, awful.layout.layouts[1])
 	s.mypromptbox = awful.widget.prompt()
 	s.mylayoutbox = awful.widget.layoutbox(s)
@@ -185,6 +202,7 @@ awful.screen.connect_for_each_screen(function(s)
 		awful.button({ }, 5, function() awful.layout.inc(-1) end)
 		)
 	)
+
 	s.mytasklist = awful.widget.tasklist {
 		screen  = s,
 		filter  = awful.widget.tasklist.filter.currenttags,
@@ -211,22 +229,28 @@ awful.screen.connect_for_each_screen(function(s)
 		},
 	}
 
-	s.mywibox = awful.wibar({ 
-		position = 'top', 
-		ontop = true,
-		type = 'dock',
+	s.mytaskbar = awful.wibar { 
 		screen = s,
-		margins = dpi(10),
-		width = '98%',
-		height = dpi(32),
-		border_width = 1,
+		position = 'bottom', 
+		ontop = true,
+		visible = true,
+		type = 'dock', --desktop, normal, dock, splash, utility, dialog, menu, toolbar
+		margins = dpi(6),
+		border_width = 2,
 		border_color = '#fd5591',
 		bg = '#6d2d48aa',
 		stretch = false, --deprecated. use beautiful.wibar_stretch
 		shape = function(cr, w, h) 
-			gears.shape.rounded_rect(cr, w, h, dpi(24)) 
+			gears.shape.rounded_rect(cr, w, h, dpi(8)) 
 		end,
-	}):setup {
+	}
+	s.mytaskbar:geometry {
+		x = dpi(0),
+		y = dpi(0),
+		width = s_w - dpi(6),
+		height = 30,
+	}
+	s.mytaskbar:setup {
 		layout = wibox.layout.align.horizontal,
 		-- {{{ Left widgets
 		{
@@ -235,7 +259,7 @@ awful.screen.connect_for_each_screen(function(s)
 			layout = wibox.layout.fixed.horizontal
 			},
 			{
-				wibox.container.margin(s.mypromptbox, dpi(5), dpi(5), dpi(0), dpi(0)),
+				wibox.container.margin(s.mypromptbox, dpi(6), dpi(6), dpi(0), dpi(0)),
 				layout = wibox.layout.fixed.horizontal
 			},
 			spacing = dpi(10),
@@ -268,14 +292,14 @@ awful.screen.connect_for_each_screen(function(s)
 				layout = wibox.layout.fixed.horizontal,
 			},
 			{
-				wibox.container.margin(mytextclock, dpi(10), dpi(10), dpi(5), dpi(5)),
+				wibox.container.margin(mytextclock, dpi(8), dpi(10), dpi(6), dpi(6)),
 				layout = wibox.layout.fixed.horizontal,
 			},
 			{
-				wibox.container.margin(s.mylayoutbox, dpi(10), dpi(15), dpi(5), dpi(5)),
+				wibox.container.margin(s.mylayoutbox, dpi(8), dpi(16), dpi(6), dpi(6)),
 				layout = wibox.layout.fixed.horizontal,
 			},
-			spacing = dpi(5),
+			spacing = dpi(6),
 			layout = wibox.layout.fixed.horizontal,
 		},
 		-- }}}
@@ -426,7 +450,7 @@ globalkeys = gears.table.join(
 			awful.tag.incnmaster(1, nil, true)
 		end, {description = 'increase the number of master clients', group = 'layout'}
 	),
-	awful.key({ super, shift }, ',',
+	awful.key({super, shift}, ',',
 		function()
 			awful.tag.incnmaster(-1, nil, true)
 		end, {description = 'decrease the number of master clients', group = 'layout'}
@@ -455,12 +479,53 @@ globalkeys = gears.table.join(
 
 -- {{{ Client keys
 clientkeys = gears.table.join(
-	awful.key({ super, ctrl }, 'f',
+	awful.key({super, ctrl}, 'f',
 		function(c)
+			local geo = c:geometry()
 			c.fullscreen = not c.fullscreen
+			if c.fullscreen then
+				c.ontop = false
+				awful.titlebar.hide(c)
+				geo.x = 0
+				geo.y = 0
+				geo.width = 1366
+				geo.height = 768
+			else
+				c.ontop = true
+				awful.titlebar.show(c)
+				geo.x = 0
+				geo.y = 0
+				geo.width = 1364
+				geo.height = 734
+			end
+			c:geometry(geo)
 			c:raise()
 		end,
 		{ description = 'toggle fullscreen', group = 'client' }
+	),
+	awful.key({ super, }, 't', 
+		function(c)
+			local geo = c:geometry()
+			--awful.titlebar.toggle(c)
+			c.titlebar = not c.titlebar
+			if c.titlebar then
+				c.ontop = true
+				awful.titlebar.hide(c)
+				geo.x = 0
+				geo.y = 0
+				geo.width = 1364
+				geo.height = 734
+			else
+				awful.titlebar.show(c)
+				c.ontop = false
+				geo.x = 0
+				geo.y = 0 
+				geo.width = 1364
+				geo.height = 738
+			end
+			c:geometry(geo)
+			c:raise()
+		end, { description = 'toggle titlebar', group = 'client' }
 	),
 
 	awful.key({ super, }, 'q',
@@ -469,20 +534,20 @@ clientkeys = gears.table.join(
 		end, { description = 'close', group = 'client' }
 	),
 
-	awful.key({ super, ctrl }, space, awful.client.floating.toggle,
+	awful.key({super, ctrl}, space, awful.client.floating.toggle,
 		{ description = 'toggle floating', group = 'client'}),
 
-	awful.key({ super, ctrl }, enter, 
+	awful.key({super, ctrl}, enter, 
 		function(c) 
 			c:swap(awful.client.getmaster()) 
 		end, { description = 'move to master', group = 'client'}
 	),
-	awful.key({ super, }, 'o', 
+	awful.key({super,}, 'o', 
 		function(c) 
 			c:move_to_screen() 
 		end, { description = 'move to screen', group = 'client'}
 	),
-	awful.key({ super, ctrl }, 't', 
+	awful.key({super, shift}, 't', 
 		function(c) 
 			c.ontop = not c.ontop 
 		end, { description = 'toggle keep on top', group = 'client'}
@@ -493,22 +558,55 @@ clientkeys = gears.table.join(
 		end , { description = 'minimize', group = 'client'}
 	),
 	awful.key({ super, }, 'm',
-		function (c)
+		function (c, t)
+			local layout = awful.layout.suit.floating
+			local geo = c:geometry()
 			c.maximized = not c.maximized
+			if c.maximized then
+				geo.width = dpi(800)
+				geo.height = dpi(480)
+				geo.x = (s_w / 2) - dpi(400)
+				geo.y = (s_h / 2) - dpi(240)
+			else
+				geo.width = 1364
+				geo.height = 738
+				geo.x = 0
+				geo.y = 0
+			end
+			c:geometry(geo)
+			layout.arrange(c.screen)
 			c:raise()
-		end, { description = '(un)maximize', group = 'client' }
-	),
-	awful.key({ super, ctrl }, 'm',
-		function (c)
+		end, {description = '(un)maximize', group = 'client'}
+	),	
+	awful.key({super, ctrl}, 'm',
+		function(c)
+			local geo = c:geometry()
 			c.maximized_vertical = not c.maximized_vertical
+			if c.maximized_vertical then
+				geo.height = dpi(480)
+				geo.y = (s_h / 2) - dpi(240)
+			else
+				geo.height = 738
+				geo.y = 0
+			end
+			c:geometry(geo)
 			c:raise()
-		end , { description = '(un)maximize vertically', group = 'client' }
+		end , {description = '(un)maximize vertically', group = 'client' }
 	),
-	awful.key({ super, shift }, 'm',
-		function (c)
+	awful.key({super, shift}, 'm',
+		function(c)
+			local geo = c:geometry()
 			c.maximized_horizontal = not c.maximized_horizontal
+			if c.maximized_horizontal then
+				geo.width = dpi(800)
+				geo.x = (s_w / 2) - dpi(400)
+			else
+				geo.width = 1364
+				geo.x = 0
+			end
+			c:geometry(geo)
 			c:raise()
-		end , { description = '(un)maximize horizontally', group = 'client' }
+		end, { description = '(un)maximize horizontally', group = 'client' }
 	)
 )
 -- }}}
@@ -562,6 +660,7 @@ end
 clientbuttons = gears.table.join(
 	awful.button({ }, 1, function (c)
 		c:emit_signal('request::activate', 'mouse_click', {raise = true})
+		naughty.notify({ text = '(' .. c.x .. ', ' .. c.y .. ') W ' .. c.width .. ' H ' .. c.height })
 	end),
 	awful.button({ super }, 1, function (c)
 		c:emit_signal('request::activate', 'mouse_click', {raise = true})
@@ -661,8 +760,9 @@ client.connect_signal('request::titlebars', function(c)
 
 	-- {{{ Titlebar
 	awful.titlebar(c, {
-		size = dpi(36),
+		size = dpi(30),
 		position = 'top',
+		visible = true,
 		shape = function(cr, w, h)
 			gears.shape.rounded_rect(cr, w, h, dpi(15))
 		end 
@@ -674,13 +774,13 @@ client.connect_signal('request::titlebars', function(c)
 					awful.titlebar.widget.closebutton(c),
 					awful.titlebar.widget.minimizebutton(c),
 					awful.titlebar.widget.maximizedbutton(c),
-					spacing = dpi(10),
+					spacing = dpi(8),
 					layout = wibox.layout.fixed.horizontal()
 				},
 				layout = wibox.layout.fixed.horizontal
 			},
-			left = dpi(15),
-			right = dpi(15),
+			left = dpi(16),
+			right = dpi(16),
 			top = dpi(8),
 			bottom = dpi(8),
 			widget = wibox.container.margin,
@@ -692,17 +792,19 @@ client.connect_signal('request::titlebars', function(c)
 				{ -- Icon&Title
 					align   = 'center',
 					awful.titlebar.widget.iconwidget(c),
-					awful.titlebar.widget.titlewidget(c),
+					--awful.titlebar.widget.titlewidget(c),
 					spacing = dpi(6),
 					layout  = wibox.layout.flex.horizontal
 				},
 				layout  = wibox.layout.fixed.horizontal,
 			},
 			buttons = buttons,
-			left = dpi(500),
-			right = dpi(115),
-			top = dpi(5),
-			bottom = dpi(5),
+			left = function(c)
+				local geometry = c:geometry()
+				return (geometry.width / 2) - dpi(160)
+			end,
+			top = dpi(4),
+			bottom = dpi(4),
 			widget = wibox.container.margin
 		},
 		-- }}}
@@ -735,6 +837,7 @@ client.connect_signal('unfocus',
 
 local function autostart()
 	awful.spawn('picom --config ' .. config_home .. 'picom/picom.conf')
+	naughty.notify({ text = 'W = ' .. s_w .. ' H = ' .. s_h })
 end
 
 autostart()

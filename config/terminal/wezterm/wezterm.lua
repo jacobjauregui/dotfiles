@@ -1,4 +1,12 @@
--- Wezterm configuration on Lua. See https://wezfurlong.org/wezterm/config/lua/config
+-- Autor: Jacob Jauregui.
+-- Date: Wdnesday, January 15, 2025.
+-- Version: 1.0
+-- Language: Lua.
+-- License: MIT License.
+-- GitHub: https://github.com/jacobjauregui
+-- Description: This file is part of my dortfiles. It contains my custom 
+-- configuration for the Wezterm terminal emulator.
+-- See https://wezfurlong.org/wezterm/config/lua/config
 
 local wezterm = require('wezterm')
 local path = wezterm.config_dir
@@ -6,9 +14,7 @@ local dimmer = { brightness = 0.1 }
 
 
 local config = {
-	-- If the environment is known to be tiling then the effective value is 
-	-- false, and true otherwise.
-	adjust_window_size_when_changing_font_size = false,
+	adjust_window_size_when_changing_font_size = true,
 	allow_square_glyphs_to_overflow_width = 'WhenFollowedBySpace', -- 'Always' | 'Never' | 'WhenFollowedBySpace'
 	allow_win32_input_mode = false,
 	alternate_buffer_wheel_scroll_speed = 3,
@@ -16,6 +22,8 @@ local config = {
 	anti_alias_custom_block_glyphs = true,
 	audible_bell = 'Disabled', -- 'Disabled' | 'SystemBeep'
 	automatically_reload_config = true,
+	initial_cols = 136,
+	initial_rows = 25,
 	--background = {
 	--	{
 	--		source = { 
@@ -95,12 +103,12 @@ local config = {
 	bold_brightens_ansi_colors = true, -- 'No' | 'BrightAndBold' | 'BrightOnly'
 	bypass_mouse_reporting_modifiers= 'ALT', -- 'ALT' | 'CTRL' | 'SHIFT'
 	canonicalize_pasted_newlines= 'None',
-	cell_width = 1.0,
-	line_height = 1.0,
+	cell_width = 1.1,
+	line_height = 1.2,
 	char_select_bg_color = '#333333',
 	char_select_fg_color = '#dcdd9a',
-	char_select_font_size = 14.0,
-	check_for_updates = false,
+	char_select_font_size = 12.0,
+	check_for_updates = true,
 	--check_for_updates_interval_seconds = 86400,
 	clean_exit_codes = { 0, 130 },
 	--color_scheme = 'Aurora',
@@ -137,7 +145,7 @@ local config = {
 	},
 	command_palette_bg_color = '#272932',
 	command_palette_fg_color = '#fdf500',
-	command_palette_font_size = 14.0,
+	command_palette_font_size = 12.0,
 	command_palette_rows = nil,
 	cursor_blink_ease_in = 'Linear',
 	cursor_blink_ease_out = 'Linear',
@@ -209,16 +217,16 @@ local config = {
 		--segment_smoothness = 0.0,
 	},
 	window_background_opacity = 1.0,
-	window_decorations = 'TITLE | RESIZE', -- 'INTEGRATED_BUTTONS' | 'TITLE' | 'RESIZE'
+	window_decorations = 'RESIZE', -- 'INTEGRATED_BUTTONS' | 'TITLE' | 'RESIZE'
 	window_frame = {
-		border_left_width = 0,
-		border_right_width = 0,
-		border_bottom_height = 0,
+		border_left_width = 2,
+		border_right_width = 2,
+		border_bottom_height = 2,
 		border_top_height = 0,
-		border_left_color = '#242424',
-		border_right_color = '#242424',
-		border_bottom_color = '#242424',
-		border_top_color = '#242424'
+		border_left_color = '#454447',
+		border_right_color = '#454447',
+		border_bottom_color = '#454447',
+		border_top_color = '#454447'
 	},
 	window_padding = {
 		left = 0,
