@@ -1,0 +1,51 @@
+" Autor: Jacob Jauregui
+" Update: July 20, 2025
+" Description: Settings vim-like keymaps for IntelliJ IDEA
+
+" [KeyMaps] {{{
+let mapleader=' '
+
+" --- NORMAL MODE ---
+nmap i <Up>
+nmap j <Left>
+nmap k <Down>
+nmap l <Right>
+nmap o <S-O>
+nnoremap m o
+nnoremap h a
+nnoremap a i
+nnoremap vv <C-v>
+nnoremap <Leader>i gg
+nnoremap <Leader>j <Home>
+nnoremap <Leader>k G
+nnoremap <Leader>l <End>
+nnoremap ; :
+nnoremap . >>
+nnoremap , <<
+nnoremap <Leader>q :wq<CR>
+nnoremap <Leader>! :q!<CR>
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>rn :set rnu!<CR>
+
+" --- INSERT MODE ---
+inoremap <A-n> <Esc>
+inoremap <A-h> <BS>
+inoremap <A-k> <Down>
+inoremap <A-i> <Up>
+inoremap <A-j> <Left>
+inoremap <A-l> <Right>
+inoremap <Leader><Space> <TAB>
+
+" --- VISUAL MODE ---
+vmap i <Up>
+vmap j <Left>
+vmap k <Down>
+vmap l <Right>
+vnoremap <Leader>i gg
+vnoremap <Leader>j <Home>
+vnoremap <Leader>k G
+vnoremap <Leader>l <End>
+vnoremap v <Esc>
+vnoremap . >
+vnoremap , <
+" }}}
