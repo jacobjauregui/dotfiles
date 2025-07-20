@@ -1,0 +1,81 @@
+" Autor: Jacob Jauregui
+" Update: July 20, 2025
+" Description: Settings for VSVim (Visual Studio plugin)
+
+" [SETTINGS] {{{
+set backspace=indent,eol,start
+set clipboard=unnamed "autoselect autoselectml
+set cursorline
+set history=100
+set number
+set scroll=0
+set scrolloff=9
+set selection=inclusive "exclusive 
+"set mousemodel=extended "popup | popup_setpos
+"set mouse=a
+"set magic
+set hlsearch
+set incsearch
+"set ignorecase
+"set smartcase
+"set maxmapdepth=0
+"set wrapscan
+set vsvim_hidemarks=<>[]^.'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+" ___Indentation (TAB)
+set noexpandtab
+set autoindent
+set shiftwidth=4
+set startofline
+set tabstop=4
+set softtabstop=4
+set nowrap
+" }}}
+
+" [KEY MAPS] {{{
+let mapleader=' '
+
+" ___NORMAL MODE
+nmap i <Up>
+nmap j <Left>
+nmap k <Down>
+nmap l <Right>
+nmap o <S-O>
+nnoremap m o
+nnoremap h a
+nnoremap a i
+nnoremap vv <C-v>
+nnoremap <Leader>i gg
+nnoremap <Leader>j <Home>
+nnoremap <Leader>k G
+nnoremap <Leader>l <End>
+nnoremap ; :
+nnoremap . >>
+nnoremap , <<
+nnoremap <Leader>q :wq<CR>
+nnoremap <Leader>! :q!<CR>
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>rn :set rnu!<CR>
+
+" ___INSERT MODE
+inoremap <A-n> <Esc>
+inoremap <A-h> <BS>
+inoremap <A-i> <Up>
+inoremap <A-j> <Left>
+inoremap <A-k> <Down>
+inoremap <A-l> <Right>
+" inoremap <Leader><Space> <TAB>
+
+" ___VISUAL MODE
+vmap i <Up>
+vmap j <Left>
+vmap k <Down>
+vmap l <Right>
+vnoremap <Leader>i gg
+vnoremap <Leader>j <Home>
+vnoremap <Leader>k G
+vnoremap <Leader>l <End>
+vnoremap v <Esc>
+vnoremap . >
+vnoremap , <
+" }}}
