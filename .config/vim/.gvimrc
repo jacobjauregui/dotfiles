@@ -1,44 +1,171 @@
-"_________________________ GENERAL SETTINGS ___________________________________
-syntax on
-set encoding=utf-8
-set clipboard=unnamed "autoselect autoselectml
-set guifont=VictorMono_NFM:h11:cANSI:qDEFAULT
+" Author: Jacob Jauregui.
+" GitHub: github.com/jacobjauregui/vimfiles
+" Update: July 20, 2025.
+" Description: Custom settings for Gvim (GUI Version)
+
+au GUIEnter * simalt ~x
+set guioptions=degLt
+set nocompatible
+set runtimepath=$HOME\\vimfiles,$PROGRAMFILES\\Vim\\vim91
+set packpath=$HOME\\vimfiles\\pack,$HOME\\vimfiles\\plugged,$HOME\\vimfiles\\plugin,$PROGRAMFILES\\Vim\\vim91\\pack,$PROGRAMFILES\\Vim\\vim91\\plugged,$PROGRAMFILES\\Vim\\vim91\\plugin
+set helpfile=$PROGRAMFILES\\Vim\\vim91\\doc\\help.txt
+set whichwrap=b,s
+set startofline
+set path+=.,$HOME\\vimfiles\\autoload,$HOME\\vimfiles\\syntax,$HOME\\vimfiles\\syntax\\after,$HOME\\vimfiles\\syntax\\after\\ftplugin,$HOME\\vimfiles\\syntax\\after\\indent,$HOME\\vimfiles\\syntax\\after\\syntax
+set cdhome
+set autochdir
+set autoshelldir
+set wrapscan
+set incsearch
+set magic
+set ignorecase
+set smartcase
+"set casemap=internal,keepascii
+set scroll=0
+set nosmoothscroll
+set scrolloff=3
+set nowrap
+set nolinebreak
+set nobreakindent
+"set breakindentopt=
+"set breakat=\ \	!@*-+;:,./?
+"set showbreak=
+set sidescroll=5
+set sidescrolloff=3
+"set display=
+set fillchars=eob:\ ,fold:≤░ì┤,foldclose:Γû╕,foldopen:Γû╛,foldsep:Γöå,lastline:\ ,vert:Γöè
+set cmdheight=1
+"set columns=80
+"set lines=24
+"set window=54
+set nolazyredraw
+set redrawtime=1000
+set writedelay=0
+set list
+set listchars=space:\ ,tab:Γöè\ ,trail:\ , "eol:\\u21b2,
+"'|Γöé', '┬ª', 'Γöå', 'Γöè'
+set number
+set norelativenumber
+set numberwidth=8
+set conceallevel=0
+"set concealcursor=
+set background=dark
+set filetype=vim
+set syntax=vim
+set synmaxcol=3000
+set nohlsearch
+"set wincolor=
 set termguicolors
+set nocursorcolumn
+set cursorline
+set cursorlineopt=both "screenline, number, line
+set colorcolumn=95
+set nospell
+set spelllang=en
+set laststatus=2
+set equalalways
+set eadirection=both
+"set winheight=54
+"set winminheight=10
+"set winfixbuf=0
+"set nowinfixheight
+"set nowinfixwidth
+"set winwidth=192
+"set winminwidth=20
+
+"___StatusLine {{{
+function CurrentMode()
+	if mode() == "i"
+		highlight VimMode gui=bold guibg=#002d6f guifg=#c2c3c1
+		highlight SepMode gui=NONE guibg=#221829 guifg=#002d6f
+		highlight StatusLine gui=NONE guibg=#221829 guifg=#002d6f font='0xProto_Nerd_Font_Mono'
+		return '≤░½╢NSERT ≤░Å¬'
+	elseif mode() == "v"
+		highlight VimMode gui=bold guibg=#023140 guifg=#c2c3c1
+		highlight SepMode gui=NONE guibg=#221829 guifg=#023140
+		highlight StatusLine gui=NONE guibg=#221829 guifg=#023140 font='0xProto_Nerd_Font_Mono'
+		return '≤░¼âISUAL ≤▒¬╢'
+	elseif mode() == "c"
+		highlight VimMode gui=bold guibg=#303030 guifg=#c2c3c1
+		highlight SepMode gui=NONE guibg=#221829 guifg=#303030
+		highlight StatusLine gui=NONE guibg=#221829 guifg=#303030 font='0xProto_Nerd_Font_Mono'
+		return '≤░½░OMMAND εÜâ'
+	elseif mode() == "n"
+		highlight VimMode gui=bold guibg=#063a00 guifg=#c2c3c1
+		highlight SepMode gui=NONE guibg=#221829 guifg=#063a00
+		highlight StatusLine gui=NONE guibg=#221829 guifg=#319897 font='0xProto_Nerd_Font_Mono'
+		return '≤░½╗ORMAL ∩ì»'
+	else
+		highlight VimMode gui=bold guibg=#023140 guifg=#c2c3c1
+		highlight SepMode gui=NONE guibg=#221829 guifg=#023140
+		highlight StatusLine gui=NONE guibg=#221829 guifg=#023140 font='0xProto_Nerd_Font_Mono'
+		return '≤░¼âBLOCK ≤▒¬╖'
+	endif
+	:redrawstatus
+endfunction
+
+function FtIcon()
+	if &ft == 'vim'
+		highlight FileIcon gui=bold guibg=#102438 guifg=#069323
+		return 'εÿ½'
+	elseif &ft == 'python'
+		highlight FileIcon gui=bold guibg=#102438 guifg=#ffdd55
+		return 'ε£╝'
+	elseif &ft == 'html'
+		highlight FileIcon gui=bold guibg=#102438 guifg=#dd4b25
+		return 'ε£╢'
+	elseif &ft == 'javascript'
+		highlight FileIcon gui=bold guibg=#102438 guifg=#f5d33c
+		return '∩ï«'
+	elseif &ft == 'css'
+		highlight FileIcon gui=bold guibg=#102438 guifg=#3b77ff
+		return 'ε¥ë'
+	elseif &ft == 'java'
+		highlight FileIcon gui=bold guibg=#102438 guifg=#e32c2b
+		return 'ε£╕'
+	elseif &ft == 'cs'
+		highlight FileIcon gui=bold guibg=#102438 guifg=#bb48cd
+		return 'ε₧▓'
+	elseif &ft == 'cpp'
+		highlight FileIcon gui=bold guibg=#102438 guifg=#00427e
+		return 'εÿ¥'
+	elseif &ft == 'json'
+		highlight FileIcon gui=bold guibg=#102438 guifg=#f5df20
+		return 'εÿï'
+	elseif &ft == 'xml'
+		highlight FileIcon gui=bold guibg=#102438 guifg=#fe8217
+		return '≤░ùÇ'
+	else
+		highlight FileIcon gui=bold guibg=#102438 guifg=#eaeaea
+		return '∩à£'
+	endif
+endfunction
+set statusline=%#SepMode#εâù%#VimMode#\ %{CurrentMode()}\ %#SepMode#εé░%#SepPath#εâù%#Path#\ %#FileIcon#%{FtIcon()}\ %#Path#%f\ %#SepPath#εé┤εé╡%=εé╖%#SepEncoding#εé╢%#Encoding#\UTF-8\ %#SepEncoding#εâû%#SepRuler#εé▓%#Ruler#\ εéí\ %l\/%L,\ εéú\ %c%V\ %#SepRuler#εâû\ 
+"}}}
+
+set showtabline=1
+"set tabclose=
+"set tabline=
+"set guitablabel=
+"set guitabtooltip
+set clipboard=unnamed "autoselect autoselectml
+set guiligatures=!\"#$%&()*+-./:<=>?@[]^_{\|~
 set guioptions-=m
 set guioptions-=r
 set guioptions-=l
 set guioptions-=T
 set backspace=indent,eol,start
-set colorcolumn=80
-set columns=130
-set lines=26
-set number
-set numberwidth=6
 set ruler
-set cursorline
-set cursorlineopt=both "screenline, number, line
-set guicursor=n-v-c:block-Cursor,o:hor50,i-ci:ver25-iCursor,sm:hor35
-set selection=inclusive "exclusive
-set scroll=3
-set scrolloff=9
-set cmdheight=1
-set showmode
-set laststatus=2
+set guicursor=n-v-c:block-nCursor,o:hor50,i-ci:ver10-iCursor-blinkwait300-blinkon200-blinkoff150,sm:hor35
+set selection=old "exclusive inclusive
+set noshowmode
 set foldenable
-set list
-set fillchars=vert:│,fold:\\u2508,foldopen:,foldclose:,eob:\ ,lastline:\ ,
-set listchars=tab:│\ ,space:\ ,trail:\ , "eol:\\u21b2,
+set foldmethod=marker
+"set foldclose=
+"set foldopen=\\u2508
 set linespace=0
 set nrformats=bin,octal,hex
-"set showcmd
-" --- SEARCH ---
-set history=100
-set nohlsearch
-set incsearch
-set ignorecase
-set smartcase
-set wildmenu
-" --- INDENTATION (TAB) ---
+set noshowcmd
 set noexpandtab
 set autoindent
 set shiftwidth=4
@@ -47,89 +174,21 @@ set tabstop=4
 set smartindent
 set softtabstop=4
 set shiftround
-set nowrap
+set history=100
+set wildmenu
+syntax on
+set encoding=utf-8
+set renderoptions=type:directx,geom:1,renmode:2,taamode:1
+"set guifont=VictorMono_NFM_SemiBold:h12:W600:cANSI:qDRAFT
+"set guifontset=VictorMono_NFM_SemiBold:h12:W600:cANSI:qDRAFT,0xProto_Nerd_Font_Mono:h12:cANSI:qDRAFT,ShureTech_Nerd_Font_Mono:h12:cANSI:qDRAFT
+"set guifontwide=Terminess_Nerd_Font:h16:w8
+set guifont=VictorMono_NFM_SemiBold:h14.4:w7.2:W600:cANSI:qDRAFT
+set noeof
+set viewdir=$HOME\\vimfiles\\view
 
-"______________________________ KeyMaps _______________________________________
-let mapleader=' '
+so $HOME\\vimfiles\\custom\\keymaps.vim
+so $HOME\\vimfiles\\custom\\highlights.vim
+so $HOME\\vimfiles\\custom\\plugins.vim
 
-" --- NORMAL MODE ---
-nmap i <Up>
-nmap j <Left>
-nmap k <Down>
-nmap l <Right>
-nmap o <S-O>
-nnoremap m o
-nnoremap h a
-nnoremap a i
-nnoremap vv <C-v>
-nnoremap <Leader>i gg
-nnoremap <Leader>j <Home>
-nnoremap <Leader>k G
-nnoremap <Leader>l <End>
-nnoremap ; :
-nnoremap . >>
-nnoremap , <<
-nnoremap <Leader>q :wq<CR>
-nnoremap <Leader>! :q!<CR>
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>rn :set rnu!<CR>
-nnoremap <A-m> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
-nnoremap <A-t> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
-nnoremap <A-r> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
-nnoremap <F5> :source %<CR>
 
-" --- INSERT MODE ---
-inoremap <A-n> <Esc>
-inoremap <A-h> <BS>
-inoremap <A-k> <Down>
-inoremap <A-i> <Up>
-inoremap <A-j> <Left>
-inoremap <A-l> <Right>
-inoremap <Leader><Space> <TAB>
-
-" --- VISUAL MODE ---
-vmap i <Up>
-vmap j <Left>
-vmap k <Down>
-vmap l <Right>
-vnoremap <Leader>i gg
-vnoremap <Leader>j <Home>
-vnoremap <Leader>k G
-vnoremap <Leader>l <End>
-vnoremap v <Esc>
-vnoremap . >
-vnoremap , <
-
-" _____________________________ HIGHLIGHTS  ___________________________________
-highlight clear
-
-highlight Normal gui=NONE guibg=#0b0b0e guifg=#eaffff "Default bg and fg.
-highlight ColorColumn gui=NONE guibg=#ee5844 guifg=NONE "column 80.
-highlight Cursor gui=NONE guibg=#0bfeca guifg=#010101 "Cursor normal mode.
-highlight iCursor gui=NONE guibg=#0bfeca guifg=#010101 "Cursor insert mode.
-highlight CursorLine gui=NONE guibg=#1b1b1e guifg=NONE "Cursor line.
-highlight CursorLineNr gui=NONE guibg=#3c494b guifg=#0bff0b "Current number line.
-highlight LineNr gui=NONE guibg=#3c3c3c guifg=#a0b3c3 "Numbers column.
-highlight StatusLine gui=NONE guibg=#3c3c3c guifg=#4bff20 "Status line.
-highlight EndOfBuffer gui=NONE guibg=bg guifg=bg "Empty lines (~).
-
-" --- SYNTAX ---
-highlight Statement gui=NONE guifg=#00bbfe guibg=NONE
-highlight Boolean gui=italic guifg=#ae81ff guibg=NONE
-highlight Comment gui=italic guifg=#c3c2c3 guibg=NONE
-highlight Keyword gui=NONE guifg=#00bbfe guibg=NONE
-highlight Constant gui=NONE guifg=#e6edf3 guibg=NONE
-highlight Identifier gui=NONE guifg=#d7fdfd guibg=NONE
-highlight Number gui=NONE guifg=#ff740f guibg=NONE
-highlight Float gui=NONE guifg=#ff740f guibg=NONE
-highlight String gui=NONE guifg=#00ca3d guibg=NONE
-highlight Character gui=NONE guifg=#00ca3d guibg=NONE
-highlight Function gui=NONE guifg=#ffff64 guibg=NONE
-highlight Conditional gui=NONE guifg=#f379f7 guibg=NONE
-highlight Repeat gui=NONE guifg=#f379f7 guibg=NONE
-highlight Operator gui=NONE guifg=#ff6767 guibg=NONE
-highlight Delimiter gui=NONE guifg=#fcfc36 guibg=NONE
-highlight Type gui=NONE guifg=#00ffca guibg=NONE
-highlight Label gui=NONE guifg=#ae81ff guibg=NONE
-highlight Error gui=underline guifg=#ff8080 guibg=NONE
-highlight PreProc gui=NONE guifg=#ff82c8 guibg=NONE
+set secure
